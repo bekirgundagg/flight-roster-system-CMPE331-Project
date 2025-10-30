@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'corsheaders',
     'passengers',
+    'cabincrew_api',
 ]
 
 MIDDLEWARE = [
