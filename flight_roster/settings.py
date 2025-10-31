@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'flight_roster.urls'
+ROOT_URLCONF = 'cabincrew.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'flight_roster.wsgi.application'
+WSGI_APPLICATION = 'cabincrew.wsgi.application'
 
 
 # Database
@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'flight_roster.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DB_NAME'),        
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'), 
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
@@ -139,3 +143,21 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    # 1. AUTHENTICATION 
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # SessionAuth: Tarayıcıdan Admin paneline giriş için (default)
+        'rest_framework.authentication.SessionAuthentication', 
+        
+        # BasicAuth: Postman ve Main System'in kullanıcı adı/şifre ile erişmesi için
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    
+    # 2. PERMISSION 
+    'DEFAULT_PERMISSION_CLASSES': (
+        # API'ya erişmek için mutlaka yetkilendirilmiş (logged in) olmayı zorunlu kılar.
+        # Kullanıcı adı ve şifre olmadan API'a erişilemez.
+        'rest_framework.permissions.IsAuthenticated', 
+    )
+}
