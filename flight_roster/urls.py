@@ -20,4 +20,6 @@ from passengers.views import health
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/health/', health),
+    path('api/pilot/', include('flight_crew_service.urls')), 
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]
