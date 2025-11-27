@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'corsheaders',
     'passengers',
+    'rest_framework.authtoken',  
+    'flight_crew_service',      
 ]
 
 MIDDLEWARE = [
