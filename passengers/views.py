@@ -1,4 +1,9 @@
-from django.http import JsonResponse
+# passengers/views.py dosyası içinde
 
-def health(request):
-    return JsonResponse({"status": "ok"})
+from rest_framework import viewsets
+from .models import Passenger
+from .serializers import PassengerSerializer
+
+class PassengerViewSet(viewsets.ModelViewSet):
+    queryset = Passenger.objects.all()
+    serializer_class = PassengerSerializer
