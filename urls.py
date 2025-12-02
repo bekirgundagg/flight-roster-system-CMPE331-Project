@@ -1,0 +1,13 @@
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import FlightViewSet, AirportViewSet, VehicleTypeViewSet
+
+# Router oluşturma ve ViewSet'leri kaydetme
+router = DefaultRouter()
+router.register(r'flights', FlightViewSet) # /api/v1/flights/
+router.register(r'airports', AirportViewSet) # /api/v1/airports/
+router.register(r'vehicle-types', VehicleTypeViewSet) # /api/v1/vehicle-types/
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
