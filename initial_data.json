@@ -1,0 +1,273 @@
+[
+{
+  "model": "cabincrew_api.language",
+  "pk": 1,
+  "fields": {
+    "lan_name": "Turkish"
+  }
+},
+{
+  "model": "cabincrew_api.language",
+  "pk": 2,
+  "fields": {
+    "lan_name": "English"
+  }
+},
+{
+  "model": "cabincrew_api.language",
+  "pk": 3,
+  "fields": {
+    "lan_name": "German"
+  }
+},
+{
+  "model": "cabincrew_api.language",
+  "pk": 4,
+  "fields": {
+    "lan_name": "French"
+  }
+},
+{
+  "model": "cabincrew_api.language",
+  "pk": 5,
+  "fields": {
+    "lan_name": "Italian"
+  }
+},
+{
+  "model": "cabincrew_api.language",
+  "pk": 6,
+  "fields": {
+    "lan_name": "Spanish"
+  }
+},
+{
+  "model": "cabincrew_api.vehicletype",
+  "pk": 1,
+  "fields": {
+    "type_veh": "A320"
+  }
+},
+{
+  "model": "cabincrew_api.vehicletype",
+  "pk": 2,
+  "fields": {
+    "type_veh": "B737"
+  }
+},
+{
+  "model": "cabincrew_api.vehicletype",
+  "pk": 3,
+  "fields": {
+    "type_veh": "B777"
+  }
+},
+{
+  "model": "cabincrew_api.vehicletype",
+  "pk": 4,
+  "fields": {
+    "type_veh": "A350"
+  }
+},
+{
+  "model": "cabincrew_api.vehicletype",
+  "pk": 5,
+  "fields": {
+    "type_veh": "ERJ190"
+  }
+},
+{
+  "model": "cabincrew_api.chefrecipe",
+  "pk": 1,
+  "fields": {
+    "chef": "CC001",
+    "recipe_name": "brownie (gluten-free)"
+  }
+},
+{
+  "model": "cabincrew_api.chefrecipe",
+  "pk": 2,
+  "fields": {
+    "chef": "CC001",
+    "recipe_name": "Mediterranean salad"
+  }
+},
+{
+  "model": "cabincrew_api.chefrecipe",
+  "pk": 3,
+  "fields": {
+    "chef": "CC001",
+    "recipe_name": "smoked turkey sandwich"
+  }
+},
+{
+  "model": "cabincrew_api.cabincrew",
+  "pk": "CC001",
+  "fields": {
+    "name": "Ayþe Yýlmaz",
+    "age": 38,
+    "gender": "Female",
+    "nationality": "Turkish",
+    "attendant_type": "chef",
+    "senority_level": "chef",
+    "known_languages": [
+      1,
+      2
+    ],
+    "vehicle_restrictions": [
+      1,
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "cabincrew_api.cabincrew",
+  "pk": "CC002",
+  "fields": {
+    "name": "Deniz Tekin",
+    "age": 45,
+    "gender": "Male",
+    "nationality": "Turkish",
+    "attendant_type": "chief",
+    "senority_level": "senior",
+    "known_languages": [
+      1,
+      2,
+      3,
+      6
+    ],
+    "vehicle_restrictions": [
+      2,
+      3,
+      5
+    ]
+  }
+},
+{
+  "model": "cabincrew_api.cabincrew",
+  "pk": "CC003",
+  "fields": {
+    "name": "Ece Arslan",
+    "age": 40,
+    "gender": "Female",
+    "nationality": "Turkish",
+    "attendant_type": "chief",
+    "senority_level": "senior",
+    "known_languages": [
+      1,
+      2,
+      4
+    ],
+    "vehicle_restrictions": [
+      1,
+      4
+    ]
+  }
+},
+{
+  "model": "cabincrew_api.cabincrew",
+  "pk": "CC004",
+  "fields": {
+    "name": "Jake Fisher",
+    "age": 24,
+    "gender": "Male",
+    "nationality": "English",
+    "attendant_type": "regular",
+    "senority_level": "junior",
+    "known_languages": [
+      2,
+      5,
+      6
+    ],
+    "vehicle_restrictions": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "cabincrew_api.cabincrew",
+  "pk": "CC005",
+  "fields": {
+    "name": "Selena Brown",
+    "age": 24,
+    "gender": "Female",
+    "nationality": "Mexican",
+    "attendant_type": "regular",
+    "senority_level": "junior",
+    "known_languages": [
+      2,
+      3,
+      5
+    ],
+    "vehicle_restrictions": [
+      4,
+      5
+    ]
+  }
+},
+{
+  "model": "cabincrew_api.cabincrew",
+  "pk": "CC006",
+  "fields": {
+    "name": "Murat Þen",
+    "age": 27,
+    "gender": "Male",
+    "nationality": "Turkish",
+    "attendant_type": "regular",
+    "senority_level": "junior",
+    "known_languages": [
+      1,
+      2,
+      4
+    ],
+    "vehicle_restrictions": [
+      5
+    ]
+  }
+},
+{
+  "model": "cabincrew_api.cabincrew",
+  "pk": "CC007",
+  "fields": {
+    "name": "Cem Yücel",
+    "age": 32,
+    "gender": "Male",
+    "nationality": "Turkish",
+    "attendant_type": "regular",
+    "senority_level": "junior",
+    "known_languages": [
+      1,
+      2,
+      6
+    ],
+    "vehicle_restrictions": [
+      1,
+      4
+    ]
+  }
+},
+{
+  "model": "cabincrew_api.cabincrew",
+  "pk": "CC008",
+  "fields": {
+    "name": "Selin Koç",
+    "age": 38,
+    "gender": "Female",
+    "nationality": "Turkish",
+    "attendant_type": "regular",
+    "senority_level": "junior",
+    "known_languages": [
+      1,
+      2,
+      5
+    ],
+    "vehicle_restrictions": [
+      2,
+      3,
+      5
+    ]
+  }
+}
+]
