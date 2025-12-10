@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from passengers.views import health
-from rest_framework_simplejwt.views import ( 
+from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
@@ -28,4 +28,6 @@ urlpatterns = [
     path('api/', include('cabincrew_api.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), # Login/Token Alma
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # Token Yenileme
+    path('api/pilot/', include('flight_crew_service.urls')),
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]
