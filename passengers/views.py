@@ -7,3 +7,7 @@ from .serializers import PassengerSerializer
 class PassengerViewSet(viewsets.ModelViewSet):
     queryset = Passenger.objects.all()
     serializer_class = PassengerSerializer
+
+
+def health():
+    return None
