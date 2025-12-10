@@ -21,6 +21,8 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+
+from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/health/', health),
@@ -30,4 +32,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # Token Yenileme
     path('api/pilot/', include('flight_crew_service.urls')),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+
+    path('api/', include('passengers.urls')),
 ]
