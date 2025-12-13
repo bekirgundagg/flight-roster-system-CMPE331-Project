@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import RegexValidator, MinValueValidator
 
 flight_re = RegexValidator(
-    regex=r'^HVB\d{3}$',
+    regex=r'^HB\d{4}$',
     message='Flight number must be in AANNNN format (e.g. HVB1234).'
 )
 

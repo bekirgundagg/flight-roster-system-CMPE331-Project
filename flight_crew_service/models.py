@@ -8,6 +8,12 @@ class Language(models.Model):
         return self.language_name
 
 class Pilot(models.Model):
+    SENIORITY_CHOICES = [
+        ('senior', 'Senior Pilot'),
+        ('junior', 'Junior Pilot'),
+        ('trainee', 'Trainee'),
+    ]
+
     name = models.CharField(max_length=100, null=False)
 
     age = models.IntegerField(null=True, blank=True)
@@ -16,7 +22,7 @@ class Pilot(models.Model):
 
     nationality = models.CharField(max_length=50, null=True, blank=True)
 
-    seniority_level = models.CharField(max_length=20, null=False)
+    seniority_level = models.CharField(max_length=20,choices=SENIORITY_CHOICES, null=False, default='trainee')
 
     allowed_range = models.IntegerField(null=False)
 
