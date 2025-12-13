@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'flight_info.flights',
     'cabincrew_api',
     'rest_framework_simplejwt',
+    'main_system',
 ]
 
 MIDDLEWARE = [
