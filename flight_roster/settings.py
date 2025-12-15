@@ -15,7 +15,6 @@ from dotenv import load_dotenv
 load_dotenv()
 import os
 from datetime import timedelta
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,7 +36,7 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": True,
     "ALGORITHM": "HS256",
-    "SIGNING_KEY": SECRET_KEY, 
+    "SIGNING_KEY": SECRET_KEY,
     "VERIFYING_KEY": None,
     "AUDIENCE": None,
     "ISSUER": None,
@@ -58,12 +57,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'drf_spectacular',
     'corsheaders',
     'passengers',
+    'rest_framework.authtoken',
+    'flight_crew_service',
+    'rest_framework',
+    'flight_info.flights',
     'cabincrew_api',
     'rest_framework_simplejwt',
+    'main_system',
 ]
 
 MIDDLEWARE = [
@@ -104,9 +107,9 @@ WSGI_APPLICATION = "flight_roster.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME'),        
+        'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'), 
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
         'HOST': os.environ.get('DB_HOST'),
         'PORT': os.environ.get('DB_PORT'),
     }
@@ -134,7 +137,7 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',    
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
 
@@ -168,19 +171,16 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    # 1. AUTHENTICATION 
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # SessionAuth: Tarayıcıdan Admin paneline giriş için (default)
-        'rest_framework.authentication.SessionAuthentication', 
-        
-        # BasicAuth: Postman ve Main System'in kullanıcı adı/şifre ile erişmesi için
+        # 👇 BU SATIR EKSİKTİ, MUTLAKA EKLE:
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+        # Diğerleri kalabilir (Admin paneli ve browsable API için gerekli)
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
-    
-    # 2. PERMISSION 
+
     'DEFAULT_PERMISSION_CLASSES': (
-        # API'ya erişmek için mutlaka yetkilendirilmiş (logged in) olmayı zorunlu kılar.
-        # Kullanıcı adı ve şifre olmadan API'a erişilemez.
-        'rest_framework.permissions.IsAuthenticated', 
+        'rest_framework.permissions.IsAuthenticated',
     )
 }
