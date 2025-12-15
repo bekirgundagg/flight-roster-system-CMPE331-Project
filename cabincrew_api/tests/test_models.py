@@ -45,23 +45,23 @@ class TestLanguageModel(TestCase):
         lang = Language.objects.create(lan_name="French")
         self.assertEqual(str(lang), "French")
 
-def test_cabincrew_multiple_languages(self):
-    eng = Language.objects.create(lan_name="English")
-    fr = Language.objects.create(lan_name="French")
+    def test_cabincrew_multiple_languages(self):
+        eng = Language.objects.create(lan_name="English")
+        fr = Language.objects.create(lan_name="French")
 
-    crew = CabinCrew.objects.create(
-        attendant_id="CC003",
-        name="Mehmet",
-        age=35,
-        gender="Male",
-        nationality="TR",
-        attendant_type="regular",
-        senority_level="senior",
-    )
+        crew = CabinCrew.objects.create(
+            attendant_id="CC003",
+            name="Mehmet",
+            age=35,
+            gender="Male",
+            nationality="TR",
+            attendant_type="regular",
+            senority_level="senior",
+        )
 
-    crew.known_languages.add(eng, fr)
+        crew.known_languages.add(eng, fr)
 
-    self.assertEqual(crew.known_languages.count(), 2)
+        self.assertEqual(crew.known_languages.count(), 2)
 
 
 
