@@ -58,7 +58,7 @@ class CabinCrew(models.Model):
     nationality = models.CharField(max_length=50)
 
     attendant_type = models.CharField(max_length=10,choices=ATTENDANT_TYPES)
-    seniority_level = models.CharField(max_length=10, choices=SENORITY_LEVELS)
+    senority_level = models.CharField(max_length=10, choices=SENORITY_LEVELS)
 
     known_languages = models.ManyToManyField(Language,related_name='crew_members')
     vehicle_restrictions = models.ManyToManyField(VehicleType,related_name='allowed_crew')
