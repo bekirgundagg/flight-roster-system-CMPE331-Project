@@ -1,0 +1,74 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+/* Sayfa arka plan ve kutuyu tam ortalama */
+.login-wrapper {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #0f3559, #214b6e);
+  display: flex;
+  justify-content: center;      /* Yatay ortalama */
+  align-items: center;          /* Dikey ortalama */
+  padding: 0 20px;
+}
+
+/* Login Kutusu */
+.login-box {
+  width: 420px;
+  background: white;
+  padding: 40px 45px;
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+/* Başlık */
+.title {
+  margin-bottom: 28px;
+  font-size: 36px;
+  font-weight: 800;
+  color: #133b5c;
+}
+
+/* Inputlar */
+.login-box input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #5e7a94;
+  margin-bottom: 16px;
+  font-size: 17px;
+}
+
+/* Button */
+.login-box button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+  transition: 0.25s ease;
+}
+
+.login-box button:hover {
+  background: #0066d9;
+}
+
+/* Hata mesajı */
+.error {
+  color: red;
+  margin-bottom: 12px;
+  font-size: 15px;
+}

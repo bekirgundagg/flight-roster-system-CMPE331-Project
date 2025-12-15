@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "James Walker",
+    "rank": "Captain",
+    "flightHours": 8200,
+    "licenseId": "LIC-CPT-1023"
+  },
+  {
+    "id": 2,
+    "name": "Elena Rossi",
+    "rank": "First Officer",
+    "flightHours": 4100,
+    "licenseId": "LIC-FO-7741"
+  }
+]
