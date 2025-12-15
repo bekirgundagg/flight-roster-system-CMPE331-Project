@@ -26,7 +26,7 @@ class TestCabinCrewViews(APITestCase):
             gender="Male",
             nationality="US",
             attendant_type="regular",
-            seniority_level="junior",
+            senority_level="junior",
         )
 
         self.crew.known_languages.add(self.language)
@@ -41,7 +41,7 @@ class TestCabinCrewViews(APITestCase):
             "age": 25,
             "nationality": "DE",
             "attendant_type": "crew",
-            "seniority_level": "junior",
+            "senority_level": "junior",
         }
 
         response = self.client.post(self.list_url, invalid_payload, format="json")
@@ -57,7 +57,7 @@ class TestCabinCrewViews(APITestCase):
             "gender": self.crew.gender,
             "nationality": self.crew.nationality,
             "attendant_type": self.crew.attendant_type,
-            "seniority_level": "senior",
+            "senority_level": "senior",
             "known_languages": [self.language.id], 
         }
 
