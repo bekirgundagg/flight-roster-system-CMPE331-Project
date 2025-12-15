@@ -16,15 +16,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from rest_framework.authtoken.views import obtain_auth_token
+
 from passengers.views import health
-from rest_framework_simplejwt.views import ( 
+from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+
+from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/health/', health),
+    path('api/flights/', include('flight_info.flights.urls')),
     path('api/', include('cabincrew_api.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), # Login/Token Alma
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # Token Yenileme
+    path('api/pilot/', include('flight_crew_service.urls')),
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+
+    path('api/', include('passengers.urls')),
 ]
