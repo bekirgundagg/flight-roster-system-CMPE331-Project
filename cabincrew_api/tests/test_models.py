@@ -15,7 +15,7 @@ class TestCabinCrewModel(TestCase):
             gender="Male",
             nationality="TR",
             attendant_type="regular",
-            senority_level="junior",
+            seniority_level="junior",
         )
 
         crew.known_languages.add(self.lang)
@@ -31,7 +31,7 @@ class TestCabinCrewModel(TestCase):
             gender="Female",
             nationality="TR",
             attendant_type="chief",
-            senority_level="senior",
+            seniority_level="senior",
         )
 
         self.assertIn("Ayşe", str(crew))
@@ -56,7 +56,7 @@ class TestLanguageModel(TestCase):
             gender="Male",
             nationality="TR",
             attendant_type="regular",
-            senority_level="senior",
+            seniority_level="senior",
         )
 
         crew.known_languages.add(eng, fr)
