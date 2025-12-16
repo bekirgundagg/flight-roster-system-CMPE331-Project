@@ -63,7 +63,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'flight_crew_service',
     'rest_framework',
-    'flight_info.flights',
+    'flight_info.flights.apps.FlightsConfig',
     'cabincrew_api',
     'rest_framework_simplejwt',
     'main_system',

@@ -5,6 +5,7 @@ class Language(models.Model):
     lan_name = models.CharField(max_length=100, unique=True)
 
     class Meta:
+        app_label = 'cabincrew_api'
         verbose_name = "Language"
         verbose_name_plural = "Languages"
 
@@ -15,6 +16,7 @@ class VehicleType(models.Model):
     type_veh = models.CharField(max_length=10,unique=True)
 
     class Meta:
+        app_label = 'cabincrew_api'
         verbose_name = "Vehicle Type"
         verbose_name_plural = "Vehicle Types"
 
@@ -28,6 +30,7 @@ class ChefRecipe(models.Model):
     recipe_name = models.CharField(max_length=100)
 
     class Meta:
+        app_label = 'cabincrew_api'
         verbose_name = "Chef Recipe"
         verbose_name_plural = "Chef Recipes"
 
@@ -55,14 +58,16 @@ class CabinCrew(models.Model):
     nationality = models.CharField(max_length=50)
 
     attendant_type = models.CharField(max_length=10,choices=ATTENDANT_TYPES)
-    seniority_level = models.CharField(max_length=10, choices=SENORITY_LEVELS)
+    senority_level = models.CharField(max_length=10, choices=SENORITY_LEVELS)
 
     known_languages = models.ManyToManyField(Language,related_name='crew_members')
     vehicle_restrictions = models.ManyToManyField(VehicleType,related_name='allowed_crew')
 
     class Meta:
+        app_label = 'cabincrew_api'
         verbose_name = "Cabin Crew Attendant "
         verbose_name_plural = "Cabin Crew Attendants"
 
     def __str__(self):
         return f"{self.name} - {self.get_attendant_type_display()} ({self.attendant_id})"
+
