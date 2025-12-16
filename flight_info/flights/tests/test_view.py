@@ -9,7 +9,7 @@ from rest_framework.test import APITestCase
 from flight_info.flights.models import Airport, VehicleType, Flight
 
 
-class AuthenticatedAPITestCase(APITestCase):
+class TestAuthenticatedAPICase(APITestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(
@@ -19,7 +19,7 @@ class AuthenticatedAPITestCase(APITestCase):
         self.client.login(username="testuser", password="testpass123")
 
 
-class AirportViewSetTest(AuthenticatedAPITestCase):
+class TestAirportViewSet(AuthenticatedAPITestCase):
 
     def setUp(self):
         super().setUp()
@@ -44,7 +44,7 @@ class AirportViewSetTest(AuthenticatedAPITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class VehicleTypeViewSetTest(AuthenticatedAPITestCase):
+class TestVehicleTypeViewSet(AuthenticatedAPITestCase):
 
     def setUp(self):
         super().setUp()
@@ -64,7 +64,7 @@ class VehicleTypeViewSetTest(AuthenticatedAPITestCase):
         self.assertEqual(VehicleType.objects.count(), 1)
 
 
-class FlightViewSetTest(AuthenticatedAPITestCase):
+class TestFlightViewSet(AuthenticatedAPITestCase):
 
     def setUp(self):
         super().setUp()
