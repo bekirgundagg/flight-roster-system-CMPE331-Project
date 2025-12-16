@@ -96,7 +96,11 @@ def assign_cabin_crew(roster):
     num_juniors = random.randint(4, min(16, len(juniors)))
     selected_juniors = random.sample(juniors, num_juniors)
 
-    num_chefs = random.randint(0, min(2, len(chefs)))
+    if chefs:
+        num_chefs = random.randint(1, min(2, len(chefs)))
+    else:
+        num_chefs = 0
+
     selected_chefs = random.sample(chefs, num_chefs)
 
     # ROSTER'A EKLE
