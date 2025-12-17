@@ -13,7 +13,10 @@ body {
 ========================= */
 .dashboard,
 .page-container {
-  padding: 32px;
+  min-height: 100vh; /* Sabit yükseklik değil, EN AZ ekran kadar olsun */
+  display: block;    /* Flex yerine blok yapı (veya flex-start) */
+  padding: 40px;     /* Kenarlardan biraz boşluk */
+  box-sizing: border-box;
 }
 
 .title {
@@ -248,4 +251,22 @@ body {
 
 .seat:hover .seat-tooltip {
   opacity: 1;
+}
+/* Sadece Ana Ekranı Ortala */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* Ekranın %80'i kadar yükseklik kapla ki ortalansın */
+  text-align: center;
+}
+
+/* Butonların yan yana düzgün durması için (Varsa mevcut sınıfın) */
+.menu-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
 }

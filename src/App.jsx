@@ -8,12 +8,13 @@ import PassengersPage from "./components/PassengersPage";
 import FlightsPage from "./components/FlightsPage";
 import FlightRosterPage from "./components/FlightRosterPage";
 
-
 function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <div className="dashboard">
+    // BURASI DEĞİŞTİ: Sınıf ismini 'dashboard-container' yaptık.
+    // CSS dosyasında .dashboard-container sınıfına ortalama kodlarını yazacaksın.
+    <div className="dashboard-container">
       <h1 className="title">SkyTeam Dashboard ✈️</h1>
 
       <div className="nav-buttons">
@@ -37,6 +38,8 @@ export default function App() {
         <Route path="/dashboard/crew" element={<FlightCrewPage />} />
         <Route path="/dashboard/passengers" element={<PassengersPage />} />
         <Route path="/dashboard/flights" element={<FlightsPage />} />
+
+        {/* Roster sayfası dinamik parametre alıyor */}
         <Route path="/roster/:flightNo" element={<FlightRosterPage />} />
 
       </Routes>
