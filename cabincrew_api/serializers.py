@@ -33,7 +33,7 @@ class CabinCrewSerializer(serializers.ModelSerializer):
             'gender',
             'nationality',
             'attendant_type',
-            'senority_level',
+            'seniority_level',
             'known_languages',
             'vehicle_restrictions',
             'recipes',
