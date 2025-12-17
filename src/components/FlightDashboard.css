@@ -69,3 +69,18 @@
   transform: scale(1.07);
   transition: 0.25s;
 }
+/* Rol rozetleri için renkler */
+.ticket-badge.chief {
+    background-color: #8e44ad; /* Mor */
+    color: white;
+}
+
+.ticket-badge.chef {
+    background-color: #d35400; /* Turuncu */
+    color: white;
+}
+
+.ticket-badge.regular {
+    background-color: #3498db; /* Mavi */
+    color: white;
+}

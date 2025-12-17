@@ -44,7 +44,7 @@ const LoginPage = () => {
         }
 
         // 3. Kullanıcıyı Dashboard'a veya Yolcu listesine yönlendir
-        navigate('/dashboard/passengers');
+        navigate('/dashboard');
         // react-router yoksa: window.location.href = '/passengers';
       } else {
         // Hata varsa ekrana yaz

@@ -44,6 +44,18 @@ class Flight(models.Model):
     vehicle = models.ForeignKey(VehicleType, on_delete=models.PROTECT)
     # optional: seating map snapshot, other metadata
     notes = models.TextField(blank=True, null=True)
+    pilots = models.ManyToManyField(
+        'flight_crew_service.Pilot',
+        related_name='flights',
+        blank=True,
+        verbose_name="Pilots"
+    )
+    cabin_crew = models.ManyToManyField(
+        'cabincrew_api.CabinCrew',
+        related_name='flights',
+        blank=True,
+        verbose_name="cabin crew"
+    )
 
     class Meta:
         unique_together = [('flight_number')]  # ensure flight numbers unique per airline

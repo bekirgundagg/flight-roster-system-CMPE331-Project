@@ -1,179 +1,151 @@
-import { useParams } from "react-router-dom";
-
-import pilots from "../assets/data/pilot.json";
-import crew from "../assets/data/crew.json";
-import passengers from "../assets/data/passengers.json";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function FlightRosterPage() {
-  const { flightNo } = useParams();
+  const { flightNo } = useParams(); // URL'den uçuş numarasını (örn: HB0001) alır
+  const navigate = useNavigate();
 
-  /* ===============================
-     DATA PREPARATION
-  =============================== */
+  const [rosterData, setRosterData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Gerçek passenger'lar (flight'a göre)
-  const flightPassengers = passengers.filter(
-    (p) => p.flight === flightNo
-  );
+  useEffect(() => {
+    // Backend'de yazdığımız yeni endpoint
+    const apiUrl = `http://127.0.0.1:8000/api/flights/roster/${flightNo}/`;
+    const token = localStorage.getItem('access_token');
 
-  // Mock seat data (passenger yoksa)
-  const mockSeats = [
-    { id: 1, name: "Emily Carter", ticket: "Economy" },
-    { id: 2, name: "Hiroshi Tanaka", ticket: "Business" },
-    { id: 3, name: "Sarah Thompson", ticket: "Economy" },
-    { id: 4, name: "Kenji Nakamura", ticket: "Business" },
-  ];
+    if (!token) {
+        navigate('/'); // Token yoksa login'e at
+        return;
+    }
 
-  // Plane view'de gösterilecek koltuklar
-  const seatsToShow =
-    flightPassengers.length > 0 ? flightPassengers : mockSeats;
+    fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Uçuş bilgileri çekilemedi");
+        return res.json();
+    })
+    .then(data => {
+        console.log("Roster Verisi:", data);
+        setRosterData(data);
+        setLoading(false);
+    })
+    .catch(err => {
+        console.error(err);
+        setError(err.message);
+        setLoading(false);
+    });
+  }, [flightNo, navigate]);
 
-  /* ===============================
-     EXPORT ROSTER (JSON)
-  =============================== */
-  const exportRosterJSON = () => {
-    const rosterData = {
-      flightNo: flightNo,
-      pilots: pilots,
-      cabinCrew: crew,
-      passengers: flightPassengers,
-      generatedAt: new Date().toISOString(),
-    };
+  if (loading) return <div className="page-container"><p>Veriler yükleniyor...</p></div>;
+  if (error) return <div className="page-container"><p style={{color:'red'}}>Hata: {error}</p></div>;
+  if (!rosterData) return null;
 
-    const jsonString = JSON.stringify(rosterData, null, 2);
-    const blob = new Blob([jsonString], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
+  const { flight, passengers, crew } = rosterData;
 
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `roster_${flightNo}.json`;
-    link.click();
-
-    URL.revokeObjectURL(url);
-  };
-
-  /* ===============================
-     RENDER
-  =============================== */
   return (
     <div className="page-container">
-      <h2 className="page-title">Flight Roster – {flightNo}</h2>
-      <p className="page-subtitle">
-        Combined roster information for the selected flight.
-      </p>
-
-      <button
-        onClick={exportRosterJSON}
-        style={{
-          marginBottom: "24px",
-          padding: "10px 18px",
-          borderRadius: "12px",
-          border: "none",
-          background: "#0d6efd",
-          color: "white",
-          fontWeight: "700",
-          cursor: "pointer",
-        }}
-      >
-        Export Roster (JSON)
-      </button>
-
-      {/* ===============================
-         TABULAR VIEW (SUMMARY)
-      =============================== */}
-      <div className="card" style={{ marginBottom: "30px" }}>
-        <h3>Tabular View (Summary)</h3>
-        <table className="styled-table">
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Role / Seat</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pilots.map((p) => (
-              <tr key={`pilot-${p.id}`}>
-                <td>Pilot</td>
-                <td>{p.id}</td>
-                <td>{p.name}</td>
-                <td>{p.rank}</td>
-              </tr>
-            ))}
-
-            {crew.map((c) => (
-              <tr key={`crew-${c.id}`}>
-                <td>Cabin Crew</td>
-                <td>{c.id}</td>
-                <td>{c.name}</td>
-                <td>{c.role}</td>
-              </tr>
-            ))}
-
-            {flightPassengers.map((p) => (
-              <tr key={`passenger-${p.id}`}>
-                <td>Passenger</td>
-                <td>{p.id}</td>
-                <td>{p.name}</td>
-                <td>{p.ticket}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <div>
+           <h2 className="page-title">Flight Roster – {flight.flight_number}</h2>
+           <p className="page-subtitle">
+             {flight.source_airport?.city} ({flight.source_airport?.code}) ➝ {flight.destination_airport?.city} ({flight.destination_airport?.code})
+           </p>
+           <p style={{color:'#666', fontSize:'14px'}}>
+             Tarih: {new Date(flight.departure_datetime).toLocaleString('tr-TR')} |
+             Uçak: {flight.vehicle_type?.model_name || "Belirtilmemiş"}
+           </p>
+        </div>
+        <button className="action-btn" onClick={() => navigate(-1)}>Geri Dön</button>
       </div>
 
-      {/* ===============================
-         EXTENDED VIEW – PASSENGERS
-      =============================== */}
-      <div className="card" style={{ marginBottom: "30px" }}>
-        <h3>Passengers</h3>
-        <table className="styled-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Passport</th>
-              <th>Ticket</th>
-            </tr>
-          </thead>
-          <tbody>
-            {flightPassengers.map((p) => (
-              <tr key={p.id}>
-                <td>{p.id}</td>
-                <td>{p.name}</td>
-                <td>{p.passport}</td>
-                <td>{p.ticket}</td>
+      {/* 1. KISIM: EKİP LİSTESİ (Tabular View) */}
+      <div className="card" style={{marginTop:'20px'}}>
+        <h3>Tabular View (Flight Crew & Pilots)</h3>
+        {crew.length > 0 ? (
+          <table className="styled-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Role</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            {/* GÜNCELLENEN KISIM BURASI */}
+            <tbody>
+              {crew.map((member) => (
+                <tr key={`${member.type}-${member.id}`}> {/* Benzersiz key oluşturduk */}
 
-      {/* ===============================
-         PLANE VIEW (MOCK SEAT PLAN)
-      =============================== */}
-      <div className="card">
-        <h3>Plane View (Seat Plan)</h3>
+                  {/* Tip ve İkon */}
+                  <td>
+                    <span style={{ fontSize: '1.2em', marginRight: '8px' }}>
+                        {member.avatar}
+                    </span>
+                    <span style={{ fontWeight: 'bold' }}>
+                        {member.type}
+                    </span>
+                  </td>
 
-        {flightPassengers.length === 0 && (
-          <p className="page-subtitle">
-            Sample seat data is shown for demonstration purposes.
+                  {/* İsim */}
+                  <td>{member.name}</td>
+
+                  {/* Rol (Badge rengini tipe göre değiştirdik) */}
+                  <td>
+                    <span className={`ticket-badge ${member.type === 'Pilot' ? 'business' : 'economy'}`}>
+                      {member.role}
+                    </span>
+                  </td>
+
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p style={{padding:'20px', color:'#999', fontStyle:'italic'}}>
+            Bu uçuşa henüz pilot veya kabin ekibi atanmamış. (Backend ilişkisi bekleniyor)
           </p>
         )}
+      </div>
 
-        <div className="seat-grid">
-          {seatsToShow.map((p, index) => (
-            <div key={p.id} className="seat">
-              <span className="seat-label">{index + 1}A</span>
-              <div className="seat-tooltip">
-                <strong>{p.name}</strong>
-                <br />
-                {p.ticket} Class
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* 2. KISIM: YOLCU LİSTESİ (Gerçek Veri) */}
+      <div className="card" style={{marginTop:'20px'}}>
+        <h3>Passengers ({passengers.length})</h3>
+        {passengers.length > 0 ? (
+            <table className="styled-table">
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Seat / Type</th>
+                <th>Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                {passengers.map(p => (
+                <tr key={p.id}>
+                    <td>#{p.id}</td>
+                    <td style={{fontWeight:'bold'}}>{p.full_name} {p.is_infant ? "👶" : ""}</td>
+                    <td>{p.email || "-"}</td>
+                    <td>
+                        <span className={`ticket-badge ${p.seat_type?.toLowerCase()}`}>
+                            {p.seat_type}
+                        </span>
+                        {p.seat_number && <span style={{marginLeft:'5px'}}>({p.seat_number})</span>}
+                    </td>
+                    <td>{p.nationality} / {p.gender} / {p.age}y</td>
+                </tr>
+                ))}
+            </tbody>
+            </table>
+        ) : (
+            <p style={{padding:'20px'}}>Bu uçuşta kayıtlı yolcu yok.</p>
+        )}
       </div>
     </div>
   );
