@@ -2,28 +2,24 @@ from rest_framework import serializers
 from .models import CabinCrew, Language, ChefRecipe, VehicleType
 
 class LanguageSerializer(serializers.ModelSerializer):
-    """ converting to JSON """
     class Meta:
         model = Language
-        fields = ['lan_name']
+        fields = ['id', 'lan_name'] 
 
 class ChefRecipeSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ChefRecipe
         fields = ['recipe_name']
 
 class VehicleTypeSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = VehicleType
-        fields = ['type_veh']
+        fields = ['id', 'type_veh']
 
 class CabinCrewSerializer(serializers.ModelSerializer):
-
-    known_languages = LanguageSerializer (many=True, read_only=True)
-    recipes = ChefRecipeSerializer (many=True, read_only=True)
-
+    known_languages = LanguageSerializer(many=True, read_only=True)
+    recipes = ChefRecipeSerializer(many=True, read_only=True)
+    
     class Meta:
         model = CabinCrew
         fields = [
@@ -38,3 +34,34 @@ class CabinCrewSerializer(serializers.ModelSerializer):
             'vehicle_restrictions',
             'recipes',
         ]
+        
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        
+        language_ids = self.initial_data.get('known_languages')
+        if language_ids:
+            instance.known_languages.set(language_ids)
+            
+        vehicle_ids = self.initial_data.get('vehicle_restrictions')
+        if vehicle_ids:
+            instance.vehicle_restrictions.set(vehicle_ids)
+
+        return instance
+
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        
+        language_ids = self.initial_data.get('known_languages')
+        if language_ids:
+            instance.known_languages.set(language_ids)
+
+        vehicle_ids = self.initial_data.get('vehicle_restrictions')
+        if vehicle_ids:
+            instance.vehicle_restrictions.set(vehicle_ids)
+            
+        return instance
+    
+    def validate_age(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Age cannot be negative.")
+        return value

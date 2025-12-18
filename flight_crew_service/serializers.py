@@ -9,7 +9,6 @@ class LanguageSerializer(serializers.ModelSerializer):
 class PilotSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pilot
-
         fields = [
             'id', 
             'name',
@@ -22,8 +21,28 @@ class PilotSerializer(serializers.ModelSerializer):
             'languages'  
         ]
         
-        # "depth = 1" ayarı, serializer'a şunu der:
-        # "languages" gibi ilişkili alanları (ForeignKey, ManyToMany)
-        # işlerken, sadece ID'lerini verme. Bir seviye derine in
-        # ve o objelerin (Language) tüm bilgilerini getir.
         depth = 1
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        
+        language_ids = self.initial_data.get('languages')
+        
+        if language_ids:
+            instance.languages.set(language_ids)
+            
+        return instance
+
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        
+        language_ids = self.initial_data.get('languages')
+        if language_ids:
+            instance.languages.set(language_ids)
+            
+        return instance
+
+    def validate_age(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Age cannot be negative.")
+        return value

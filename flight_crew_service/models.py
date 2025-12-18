@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 class Language(models.Model):
     # language_id (PK - Ana Anahtar) Django'll make it automaticlly
@@ -16,13 +17,13 @@ class Pilot(models.Model):
 
     name = models.CharField(max_length=100, null=False)
 
-    age = models.IntegerField(null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])
 
     gender = models.CharField(max_length=10, null=True, blank=True)
 
     nationality = models.CharField(max_length=50, null=True, blank=True)
 
-    seniority_level = models.CharField(max_length=20,choices=SENIORITY_CHOICES, null=False, default='trainee')
+    seniority_level = models.CharField(max_length=20, choices=SENIORITY_CHOICES, null=False, default='trainee')
 
     allowed_range = models.IntegerField(null=False)
 

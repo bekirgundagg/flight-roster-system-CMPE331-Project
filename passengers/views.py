@@ -1,5 +1,3 @@
-# passengers/views.py dosyası içinde
-
 from rest_framework import viewsets
 from .models import Passenger
 from .serializers import PassengerSerializer
