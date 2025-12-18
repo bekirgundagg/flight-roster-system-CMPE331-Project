@@ -10,9 +10,6 @@ export default function FlightRosterPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // --- HATA BURADAYDI: Bu satırları buradan kaldırdık ---
-  // Çünkü burada henüz 'flight' verisi yok!
-
   useEffect(() => {
     const apiUrl = `http://127.0.0.1:8000/api/flights/roster/${flightNo}/`;
     const token = localStorage.getItem('access_token');
@@ -46,7 +43,6 @@ export default function FlightRosterPage() {
   // Otomatik Atama Fonksiyonu (Auto Assign)
   const handleAutoAssign = () => {
     const token = localStorage.getItem('access_token');
-    // URL'in senin backend urls.py ile uyumlu olduğundan emin ol
     fetch(`http://127.0.0.1:8000/api/flights/roster/${flightNo}/auto-assign/`, {
         method: 'POST',
         headers: {
@@ -65,23 +61,48 @@ export default function FlightRosterPage() {
     .catch(err => alert("Bağlantı hatası"));
   };
 
+  // --- YENİ: JSON Export Fonksiyonu ---
+  const handleExportJson = () => {
+    if (!rosterData) return;
+
+    // 1. İndirilecek dosya ismini hazırla (Örn: Roster-HB0001.json)
+    // flight verisi aşağıda tanımlandığı için burada rosterData.flight üzerinden erişiyoruz
+    const fileName = `Roster-${rosterData.flight.flight_number}.json`;
+
+    // 2. Veriyi JSON string'e çevir
+    const jsonString = JSON.stringify(rosterData, null, 2);
+
+    // 3. Blob oluştur
+    const blob = new Blob([jsonString], { type: "application/json" });
+
+    // 4. İndirme bağlantısı oluştur ve tıkla
+    const href = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+
+    // 5. Temizlik
+    document.body.removeChild(link);
+    URL.revokeObjectURL(href);
+  };
+
   if (loading) return <div className="page-container"><p>Veriler yükleniyor...</p></div>;
   if (error) return <div className="page-container"><p style={{color:'red'}}>Hata: {error}</p></div>;
-
-  // BU SATIR KRİTİK: Eğer veri yoksa (null), aşağıya geçme ve boş dön.
   if (!rosterData) return null;
 
   // --- VERİLER GELDİKTEN SONRA ---
-  // Değişkenleri burada tanımlıyoruz (Destructuring)
-  const { flight, passengers, crew } = rosterData;
+  const { flight, passengers, crew, menu } = rosterData;
 
-  // --- PLANE VIEW HESAPLAMALARINI BURAYA TAŞIDIK ---
-  // Artık 'flight' verisi elimizde olduğu için güvenle hesap yapabiliriz.
+  // --- EXTENDED VIEW: EKİBİ AYRIŞTIRMA ---
+  const pilots = crew.filter(c => c.type === 'Pilot');
+  const cabinCrew = crew.filter(c => c.type === 'Cabin Crew');
 
+  // --- PLANE VIEW HESAPLAMALARINI ---
   const columnsLeft = ['A', 'B', 'C'];
   const columnsRight = ['D', 'E', 'F'];
 
-  // Dinamik Hesaplama:
   const seatCount = flight.vehicle_type?.seat_count || 180;
   const seatsPerRow = 6;
   const totalRows = Math.ceil(seatCount / seatsPerRow);
@@ -142,50 +163,52 @@ export default function FlightRosterPage() {
         {/* SOL SÜTUN */}
         <div className="roster-left">
 
-            {/* 1. EKİP LİSTESİ */}
-            <div className="card">
-                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'10px'}}>
-                    <h3>Flight Crew & Pilots</h3>
-
-                    {/* AUTO ASSIGN BUTONU */}
-                    {crew.length === 0 && (
+            {/* BUTONLAR VE BAŞLIK ALANI */}
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'15px'}}>
+               <h3 style={{margin:0}}>Flight Roster Details</h3>
+               <div style={{display:'flex', gap:'10px'}}>
+                   {/* OTO ATA BUTONU (Sadece liste boşsa) */}
+                   {crew.length === 0 && (
                         <button
                             onClick={handleAutoAssign}
-                            style={{
-                                backgroundColor: '#27ae60',
-                                color: 'white',
-                                border: 'none',
-                                padding: '8px 15px',
-                                borderRadius: '5px',
-                                cursor: 'pointer',
-                                fontWeight: 'bold'
-                            }}
+                            className="action-btn"
+                            style={{backgroundColor: '#27ae60'}} // Yeşil
                         >
-                            🤖 Otomatik Ata
+                            🤖 Auto Assign
                         </button>
-                    )}
-                </div>
+                   )}
 
-                {crew.length > 0 ? (
+                   {/* EXPORT JSON BUTONU (Her zaman görünür) */}
+                   <button
+                        onClick={handleExportJson}
+                        className="action-btn"
+                        style={{backgroundColor: '#e67e22'}} // Turuncu
+                   >
+                        📥 Export JSON
+                   </button>
+               </div>
+            </div>
+
+            {/* 1. TABLO: PİLOTLAR */}
+            <div className="card" style={{marginBottom:'20px'}}>
+                <h4>✈️ Pilots</h4>
+                {pilots.length > 0 ? (
                 <table className="styled-table">
                     <thead>
                     <tr>
-                        <th>Type</th>
+                        <th>Avatar</th>
                         <th>Name</th>
-                        <th>Role</th>
+                        <th>Seniority</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {crew.map((member) => (
-                        <tr key={`${member.type}-${member.id}`}>
+                    {pilots.map((member) => (
+                        <tr key={`pilot-${member.id}`}>
+                        <td style={{fontSize: '1.5em'}}>{member.avatar}</td>
+                        <td style={{fontWeight:'bold'}}>{member.name}</td>
                         <td>
-                            <span style={{ fontSize: '1.2em', marginRight: '8px' }}>{member.avatar}</span>
-                            <span style={{ fontWeight: 'bold' }}>{member.type}</span>
-                        </td>
-                        <td>{member.name}</td>
-                        <td>
-                            <span className={`ticket-badge ${member.type === 'Pilot' ? 'business' : 'economy'}`}>
-                            {member.role}
+                            <span className="ticket-badge business">
+                                {member.role}
                             </span>
                         </td>
                         </tr>
@@ -193,14 +216,76 @@ export default function FlightRosterPage() {
                     </tbody>
                 </table>
                 ) : (
-                <p style={{padding:'20px', color:'#999'}}>
-                    Atama yapılmamış. Otomatik atama yapmak için butona tıklayın.
-                </p>
+                    <p style={{color:'#999', padding:'10px'}}>Henüz pilot atanmamış.</p>
                 )}
             </div>
 
-            {/* 2. YOLCU LİSTESİ */}
-            <div className="card" style={{marginTop:'20px'}}>
+            {/* 2. TABLO: KABİN EKİBİ */}
+            <div className="card" style={{marginBottom:'20px'}}>
+                <h4>💁‍♀️ Cabin Crew</h4>
+                {cabinCrew.length > 0 ? (
+                <table className="styled-table">
+                    <thead>
+                    <tr>
+                        <th>Avatar</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {cabinCrew.map((member) => (
+                        <tr key={`crew-${member.id}`}>
+                        <td style={{fontSize: '1.5em'}}>{member.avatar}</td>
+                        <td>{member.name}</td>
+                        <td>
+                            <span className={`ticket-badge ${member.role === 'chef' ? 'business' : 'economy'}`}>
+                                {member.role}
+                            </span>
+                        </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+                ) : (
+                    <p style={{color:'#999', padding:'10px'}}>Henüz kabin ekibi atanmamış.</p>
+                )}
+            </div>
+
+            {/* 3. MENÜ KARTI */}
+            <div className="card" style={{marginBottom:'20px'}}>
+                <h3>In-Flight Menu 🍽️</h3>
+                {menu && menu.length > 0 ? (
+                    <ul style={{listStyle:'none', padding:0, marginTop:'10px'}}>
+                        {menu.map((item, index) => (
+                            <li key={index} style={{
+                                padding: '10px',
+                                borderBottom: '1px solid #eee',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}>
+                                <span style={{fontSize:'1.5em', marginRight:'10px'}}>
+                                    {item.type === "Chef's Special" ? "👨‍🍳" : "🍱"}
+                                </span>
+                                <div>
+                                    <div style={{fontWeight:'bold', color: '#2c3e50'}}>
+                                        {item.name}
+                                    </div>
+                                    {item.chef && (
+                                        <div style={{fontSize:'12px', color:'#e67e22', fontStyle:'italic'}}>
+                                            ★ Chef's Special by {item.chef}
+                                        </div>
+                                    )}
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p style={{padding:'10px', color:'#999'}}>Menü bilgisi bulunamadı veya henüz oluşturulmadı.</p>
+                )}
+            </div>
+
+            {/* 4. YOLCU LİSTESİ */}
+            <div className="card">
                 <h3>Passengers ({passengers.length})</h3>
                 {passengers.length > 0 ? (
                     <table className="styled-table">
