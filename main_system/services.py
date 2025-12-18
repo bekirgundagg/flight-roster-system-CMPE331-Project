@@ -29,9 +29,10 @@ def assign_pilots(roster):
         return False
 
     # ADIM 2: Kıdemlerine Göre Grupla
-    seniors = list(candidates.filter(senority_level='senior'))
-    juniors = list(candidates.filter(senority_level='junior'))
-    trainees = list(candidates.filter(senority_level='trainee'))
+    seniors = list(candidates.filter(seniority_level='senior'))
+    juniors = list(candidates.filter(seniority_level='junior'))
+    trainees = list(candidates.filter(seniority_level='trainee'))
+
 
     # ADIM 3: Yeterlilik Kontrolü (1 Senior + 1 Junior Şartı)
     if not seniors:
