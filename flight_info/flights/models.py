@@ -24,7 +24,7 @@ class Airport(models.Model):
         return f"{self.code} - {self.city}, {self.name}"
 
 class VehicleType(models.Model):
-    name = models.CharField(max_length=50)  # e.g. A320
+    name = models.CharField(max_length=50)  
     seat_count = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     seating_plan = models.JSONField(null=True, blank=True)
     max_crew = models.PositiveIntegerField(default=6)
@@ -42,11 +42,10 @@ class Flight(models.Model):
     source = models.ForeignKey(Airport, on_delete=models.PROTECT, related_name="departures")
     destination = models.ForeignKey(Airport, on_delete=models.PROTECT, related_name="arrivals")
     vehicle = models.ForeignKey(VehicleType, on_delete=models.PROTECT)
-    # optional: seating map snapshot, other metadata
     notes = models.TextField(blank=True, null=True)
 
     class Meta:
-        unique_together = [('flight_number')]  # ensure flight numbers unique per airline
+        unique_together = [('flight_number')]  
         indexes = [
             models.Index(fields=['departure_datetime']),
             models.Index(fields=['flight_number']),
@@ -56,10 +55,9 @@ class Flight(models.Model):
         return f"{SINGLE_AIRLINE_CODE}{self.flight_number} — {self.source.code}->{self.destination.code} @ {self.departure_datetime}"
 
 class SharedFlightInfo(models.Model):
-    flight = models.OneToOneField(Flight, on_delete=models.CASCADE, related_name="shared_info") #her Flight için en fazla bir SharedFlightInfo olabilir.
+    flight = models.OneToOneField(Flight, on_delete=models.CASCADE, related_name="shared_info")
     partner_airline = models.CharField(max_length=100) 
     partner_flight_number = models.CharField(max_length=6, validators=[flight_re])
-    # optionally: connecting flight info for shared flights
     connecting_flight = models.ForeignKey(Flight, null=True, blank=True, on_delete=models.SET_NULL, related_name='connected_to')
 
     def __str__(self):

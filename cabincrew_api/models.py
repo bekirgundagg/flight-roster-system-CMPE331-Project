@@ -1,7 +1,7 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 class Language(models.Model):
-    """ It stores cabin crew info in languages """
     lan_name = models.CharField(max_length=100, unique=True)
 
     class Meta:
@@ -25,7 +25,6 @@ class VehicleType(models.Model):
 
     
 class ChefRecipe(models.Model):
-    """ It stores recipes that only chef type employees can prepare """
     chef = models.ForeignKey('CabinCrew', on_delete=models.CASCADE, related_name='recipes')
     recipe_name = models.CharField(max_length=100)
 
@@ -53,7 +52,9 @@ class CabinCrew(models.Model):
 
     attendant_id = models.CharField(max_length=10,unique=True,primary_key=True)
     name = models.CharField(max_length=100)
-    age = models.IntegerField()
+    
+    age = models.IntegerField(validators=[MinValueValidator(0)])
+    
     gender = models.CharField(max_length=10)
     nationality = models.CharField(max_length=50)
 
