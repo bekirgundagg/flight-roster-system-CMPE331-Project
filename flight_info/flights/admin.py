@@ -1,13 +1,13 @@
 from django.contrib import admin
-from .models import Airport, VehicleType, Flight, SharedFlightInfo 
+from .models import Airport, VehicleType, Flight, SharedFlightInfo
 from django.utils.html import format_html
 
 @admin.register(SharedFlightInfo)
 class SharedFlightInfoAdmin(admin.ModelAdmin):
     list_display = ('get_flight_number', 'partner_airline', 'partner_flight_number', 'connecting_flight')
     search_fields = (
-        'flight__flight_number', 
-        'partner_airline', 
+        'flight__flight_number',
+        'partner_airline',
         'partner_flight_number'
     )
     list_filter = ()
@@ -20,34 +20,37 @@ class SharedFlightInfoAdmin(admin.ModelAdmin):
 class AirportAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'city', 'country')
     search_fields = ('code', 'name', 'city')
-    list_filter = ('country',) 
+    list_filter = ('country',)
 
 @admin.register(VehicleType)
 class VehicleTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'seat_count', 'max_crew', 'max_passengers')
     search_fields = ('name',)
     
-    readonly_fields = ('seating_plan', 'standard_menu') 
+    readonly_fields = ('seating_plan', 'standard_menu')
 
 @admin.register(Flight)
 class FlightAdmin(admin.ModelAdmin):
     list_display = (
         'flight_number', 
         'departure_datetime', 
-        'source', 
-        'destination', 
-        'vehicle', 
-        'has_shared_info' 
+        'source',
+        'destination',
+        'vehicle',
+        'has_shared_info'
     )
-    
+
     list_filter = ('departure_datetime', 'vehicle')
-    
+
     search_fields = (
-        'flight_number', 
-        'source__code', 
+        'flight_number',
+        'source__code',
         'destination__code'
     )
-    
+
+
+    filter_horizontal = ('pilots', 'cabin_crew')
+
     fieldsets = (
         ('Temel Uçuş Bilgileri', {
             'fields': (
@@ -67,6 +70,11 @@ class FlightAdmin(admin.ModelAdmin):
                 'vehicle', 
             )
         }),
+        ('Uçuş Ekibi Ataması (Roster)', {
+            'fields': ('pilots', 'cabin_crew'),
+            'classes': ('collapse',),
+            'description': 'Bu uçuşta görev alacak pilot ve kabin ekibini buradan seçiniz.'
+        }),
     )
 
 
@@ -76,4 +84,4 @@ class FlightAdmin(admin.ModelAdmin):
             return format_html('<span style="color: green; font-weight: bold;">Evet</span>')
         return format_html('<span style="color: red;">Hayır</span>')
 
-    has_shared_info.boolean = False 
+    has_shared_info.boolean = False

@@ -1,0 +1,272 @@
+/* =========================
+   GLOBAL
+========================= */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #f4f8fd 0%, #ffffff 100%);
+  color: #0a2540;
+}
+
+/* =========================
+   DASHBOARD & PAGE LAYOUT
+========================= */
+.dashboard,
+.page-container {
+  min-height: 100vh; /* Sabit yükseklik değil, EN AZ ekran kadar olsun */
+  display: block;    /* Flex yerine blok yapı (veya flex-start) */
+  padding: 40px;     /* Kenarlardan biraz boşluk */
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #0a3d62;
+  margin-bottom: 28px;
+}
+
+.page-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #0a3d62;
+}
+
+.page-subtitle {
+  margin-top: 6px;
+  margin-bottom: 22px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+/* =========================
+   NAVIGATION BUTTONS
+========================= */
+.nav-buttons button {
+  padding: 12px 22px;
+  margin-right: 12px;
+  border-radius: 14px;
+  border: 1px solid #cfe2ff;
+  background: white;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  color: #0d6efd;
+  transition: all 0.25s ease;
+}
+
+.nav-buttons button:hover {
+  background: #0d6efd;
+  color: white;
+  box-shadow: 0 8px 20px rgba(13, 110, 253, 0.25);
+  transform: translateY(-2px);
+}
+
+/* =========================
+   CARD / PANEL
+========================= */
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid #e3ecff;
+  box-shadow: 0 10px 30px rgba(13, 110, 253, 0.08);
+}
+
+/* =========================
+   TABLE
+========================= */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 15px;
+  border-bottom: 1px solid #dee2e6;
+  text-align: left;
+  font-size: 15px;
+}
+
+.styled-table th {
+  background: #e7f1ff;
+  color: #0a3d62;
+  font-weight: 700;
+}
+
+.styled-table tr:hover {
+  background: #f1f7ff;
+}
+
+/* =========================
+   STATUS BADGES
+========================= */
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.status-badge.ontime {
+  background: linear-gradient(135deg, #1e90ff, #0d6efd);
+  color: white;
+}
+
+.status-badge.delayed {
+  background: linear-gradient(135deg, #ffb703, #fb8500);
+  color: white;
+}
+
+/* =========================
+   TICKET BADGES
+========================= */
+.ticket-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.ticket-badge.economy {
+  background: #e7f1ff;
+  color: #0d6efd;
+}
+
+.ticket-badge.business {
+  background: linear-gradient(135deg, #90caf9, #42a5f5);
+  color: #0a2540;
+}
+
+/* =========================
+   LOGIN PAGE
+========================= */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #f4f8fd 0%, #ffffff 100%);
+}
+
+.login-card {
+  background: white;
+  padding: 40px 42px;
+  border-radius: 22px;
+  min-width: 340px;
+  text-align: center;
+  border-top: 6px solid #0d6efd;
+  box-shadow: 0 20px 50px rgba(13, 110, 253, 0.2);
+}
+
+.login-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0a3d62;
+  margin-bottom: 6px;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 22px;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border: 1px solid #ced4da;
+  font-size: 15px;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #0d6efd;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 13px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #0d6efd, #1e90ff);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.login-card button:hover {
+  background: linear-gradient(135deg, #0a58ca, #0d6efd);
+  box-shadow: 0 8px 20px rgba(13, 110, 253, 0.35);
+}
+/* ===== PLANE VIEW (SEAT PLAN) ===== */
+
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+  max-width: 500px;
+}
+
+.seat {
+  position: relative;
+  background: #e7f1ff;
+  border: 2px solid #0d6efd;
+  border-radius: 10px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.seat-label {
+  font-weight: 700;
+  color: #0a3d62;
+}
+
+.seat-tooltip {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.seat:hover .seat-tooltip {
+  opacity: 1;
+}
+/* Sadece Ana Ekranı Ortala */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* Ekranın %80'i kadar yükseklik kapla ki ortalansın */
+  text-align: center;
+}
+
+/* Butonların yan yana düzgün durması için (Varsa mevcut sınıfın) */
+.menu-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}

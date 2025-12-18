@@ -1,0 +1,111 @@
+/* src/components/PilotsPage.css */
+.pilots-page-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.pilots-page-container h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 40px;
+  font-size: 2.5em;
+}
+
+.pilot-cards-container {
+  display: flex;
+  flex-wrap: wrap; /* Kartlar sığmazsa alt satıra geçsin */
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+}
+
+.pilot-card {
+  background-color: #36393f; /* Koyu arkaplan */
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  padding: 25px;
+  width: 220px; /* Sabit genişlik */
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pilot-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+}
+
+.pilot-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Yuvarlak resim */
+  object-fit: cover; /* Resmi kutuya sığdır */
+  border: 3px solid #007bff; /* Çerçeve */
+  margin-bottom: 15px;
+}
+
+.pilot-card h2 {
+  font-size: 1.8em;
+  margin-bottom: 5px;
+  color: #007bff; /* Mavi başlık */
+}
+
+.pilot-card p {
+  font-size: 1.1em;
+  color: #ccc;
+}
+.detail-card {
+  padding: 20px;
+  margin-top: 20px;
+  background: #ffffff10;
+  border-radius: 15px;
+  text-align: center;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+.section-title {
+  margin-top: 25px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.plane-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.plane-item {
+  background: #ffffff20;
+  padding: 8px 12px;
+  margin: 6px 0;
+  border-radius: 10px;
+  font-size: 16px;
+}

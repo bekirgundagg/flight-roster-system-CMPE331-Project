@@ -1,0 +1,40 @@
+.welcome-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/images/welcome-plane.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-content {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 35px 55px;
+  border-radius: 15px;
+  backdrop-filter: blur(6px);
+}
+
+.welcome-content h1 {
+  font-size: 42px;
+  color: #0c2d48;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.welcome-content button {
+  padding: 12px 28px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+  transition: 0.3s;
+}
+
+.welcome-content button:hover {
+  background: #005ac2;
+}

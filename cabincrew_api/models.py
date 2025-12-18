@@ -44,7 +44,7 @@ class CabinCrew(models.Model):
         ('chef', 'Chef'),
     )
 
-    SENORITY_LEVELS = (
+    SENIORITY_LEVELS = (
         ('senior', 'Senior Attendant'),
         ('junior', 'Junior Attendant'),
         ('chef', 'Chef Role'),
@@ -52,14 +52,14 @@ class CabinCrew(models.Model):
 
     attendant_id = models.CharField(max_length=10,unique=True,primary_key=True)
     name = models.CharField(max_length=100)
-    
+
     age = models.IntegerField(validators=[MinValueValidator(0)])
-    
+
     gender = models.CharField(max_length=10)
     nationality = models.CharField(max_length=50)
 
     attendant_type = models.CharField(max_length=10,choices=ATTENDANT_TYPES)
-    senority_level = models.CharField(max_length=10, choices=SENORITY_LEVELS)
+    seniority_level = models.CharField(max_length=10, choices=SENIORITY_LEVELS)
 
     known_languages = models.ManyToManyField(Language,related_name='crew_members')
     vehicle_restrictions = models.ManyToManyField(VehicleType,related_name='allowed_crew')

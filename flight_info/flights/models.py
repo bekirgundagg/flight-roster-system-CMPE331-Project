@@ -43,6 +43,18 @@ class Flight(models.Model):
     destination = models.ForeignKey(Airport, on_delete=models.PROTECT, related_name="arrivals")
     vehicle = models.ForeignKey(VehicleType, on_delete=models.PROTECT)
     notes = models.TextField(blank=True, null=True)
+    pilots = models.ManyToManyField(
+        'flight_crew_service.Pilot',
+        related_name='flights',
+        blank=True,
+        verbose_name="Pilots"
+    )
+    cabin_crew = models.ManyToManyField(
+        'cabincrew_api.CabinCrew',
+        related_name='flights',
+        blank=True,
+        verbose_name="cabin crew"
+    )
 
     class Meta:
         unique_together = [('flight_number')]  

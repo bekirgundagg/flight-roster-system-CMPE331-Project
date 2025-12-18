@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Emily Carter",
+    "passport": "A12345678",
+    "country": "USA",
+    "ticket": "Economy",
+    "flight": "SK123"
+  },
+  {
+    "id": 2,
+    "name": "Hiroshi Tanaka",
+    "passport": "JP99887766",
+    "country": "Japan",
+    "ticket": "Business",
+    "flight": "SK220"
+  }
+]

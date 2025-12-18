@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "flightNo": "SK120",
+    "origin": "Istanbul",
+    "destination": "Stockholm",
+    "departure": "2025-01-12T10:00",
+    "arrival": "2025-01-12T12:40",
+    "status": "On Time"
+  },
+  {
+    "id": 2,
+    "flightNo": "SK450",
+    "origin": "Vilnius",
+    "destination": "Paris",
+    "departure": "2025-01-18T14:30",
+    "arrival": "2025-01-18T16:55",
+    "status": "Delayed"
+  }
+]

@@ -1,14 +1,77 @@
+############################
+# Python / Django
+############################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
 venv/
-.idea/
-.vscode/
+.venv/
+env/
+ENV/
+
+# Django static/media (opsiyonel: siz nasıl yönetiyorsanız)
+staticfiles/
+media/
+
+# Django secrets & local settings
+.env
+.env.*
+*.env
+local_settings.py
+
+# Django database (opsiyonel; MySQL kullanıyorsanız yine de kalsın)
 db.sqlite3
 *.sqlite3
+
+# Python tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.coverage
+coverage.xml
+htmlcov/
+
+############################
+# Node / React (Vite)
+############################
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Logs
+logs/
 *.log
-__pycache__/
-*.pyc
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+############################
+# OS / Editor
+############################
 .DS_Store
 Thumbs.db
-.env
-.coverage
-htmlcov/
-node_modules/
+
+.idea/
+.vscode/
+# Eğer repo içinde VSCode eklentilerini paylaşmak istiyorsanız açın:
+# !.vscode/extensions.json
+
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+############################
+# Docker / MySQL (opsiyonel)
+############################
+# Docker volume klasörleri repoda tutuluyorsa ignore edin:
+docker-data/
+mysql-data/
