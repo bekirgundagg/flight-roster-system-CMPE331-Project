@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import timedelta
 from flight_info.flights.models import Airport, VehicleType, Flight
+from django.utils.dateparse import parse_datetime
 
 class FlightAcceptanceTest(APITestCase):
     def setUp(self):
@@ -67,9 +68,16 @@ class FlightAcceptanceTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_acceptance_update_flight_schedule_workflow(self):
+
+        from django.utils import timezone
+        from datetime import timedelta
+        from django.utils.dateparse import parse_datetime
+
+        safe_now = timezone.now().replace(hour=12, minute=0, second=0)
+
         flight = Flight.objects.create(
-            flight_number="HB9001", 
-            departure_datetime=timezone.now(),
+            flight_number="HB9001",
+            departure_datetime=safe_now,
             duration_minutes=100,
             distance_km=500,
             source=self.source,
@@ -78,12 +86,16 @@ class FlightAcceptanceTest(APITestCase):
         )
 
         detail_url = reverse("flight-detail", args=[flight.id])
-        
-        new_time = (timezone.now() + timedelta(days=5)).isoformat()
+        new_time = (safe_now + timedelta(days=5)).isoformat()
         patch_payload = {"departure_datetime": new_time}
 
         response = self.client.patch(detail_url, patch_payload, format="json")
-        
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
         response_time = response.data["departure_datetime"]
-        self.assertTrue(new_time.split("T")[0] in response_time)
+
+        sent_dt = parse_datetime(new_time)
+        received_dt = parse_datetime(response_time)
+        self.assertEqual(sent_dt.date(), received_dt.date(),
+                         f"Tarihler tutmadı! Giden: {sent_dt.date()} vs Gelen: {received_dt.date()}")

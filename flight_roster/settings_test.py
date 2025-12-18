@@ -1,18 +1,11 @@
-
 from .settings import *
-from pathlib import Path
+# from pathlib import Path  <-- Buna da gerek kalmadı çünkü sqlite dosya yolu oluşturmuyoruz
+# BASE_DIR = ...            <-- Buna da gerek yok
 
-BASE_DIR = Path(__file__).resolve().parent
+# BURADAKİ DATABASES BLOĞUNU TAMAMEN SİLİYORUZ.
+# Sildiğimizde otomatik olarak settings.py'deki MySQL ayarlarını kullanır.
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'test_db.sqlite3',
-    }
-}
-
+# Bu kısım kalsın, testleri hızlandırır (Güvenliği düşürür ama test için iyidir)
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.MD5PasswordHasher',
 ]
-
-
