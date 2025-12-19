@@ -7,17 +7,18 @@ export default function GlobalManifestPage() {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // FİLTRELEME STATE'LERİ
-  const [filterType, setFilterType] = useState('All'); // All, Pilot, Cabin Crew, Passenger
-  const [searchTerm, setSearchTerm] = useState(''); // İsimle arama
-  const [roleFilter, setRoleFilter] = useState(''); // Senior, Business vb. arama
+  // --- 1. DEĞİŞİKLİK: FİLTRE STATE'İ ARTIK BİR DİZİ (ARRAY) ---
+  // Başlangıçta boş [] bırakıyoruz, bu "All" (Hepsi) anlamına gelecek.
+  const [selectedFilters, setSelectedFilters] = useState([]);
 
-  // SAYFALAMA
+  const [searchTerm, setSearchTerm] = useState('');
+  const [roleFilter, setRoleFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 15; // Listede 15 kişi göster
+  const itemsPerPage = 15;
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
+    // URL'ini kendi projene göre ayarla (api/main_system veya api/flights)
     fetch('http://127.0.0.1:8000/api/flights/global-manifest/', {
         headers: { 'Authorization': `Bearer ${token}` }
     })
@@ -32,15 +33,39 @@ export default function GlobalManifestPage() {
     });
   }, []);
 
-  // --- GELİŞMİŞ FİLTRELEME MANTIĞI ---
+  // --- 2. DEĞİŞİKLİK: ÇOKLU SEÇİM FONKSİYONU ---
+  const toggleFilter = (type) => {
+    setCurrentPage(1); // Filtre değişince sayfa 1'e dön
+
+    // Eğer 'All' butonuna basıldıysa listeyi temizle (Her şeyi göster)
+    if (type === 'All') {
+        setSelectedFilters([]);
+        return;
+    }
+
+    // Eğer buton zaten seçiliyse -> Listeden Çıkar
+    if (selectedFilters.includes(type)) {
+        setSelectedFilters(prev => prev.filter(item => item !== type));
+    }
+    // Seçili değilse -> Listeye Ekle
+    else {
+        setSelectedFilters(prev => [...prev, type]);
+    }
+  };
+
+  // --- 3. DEĞİŞİKLİK: FİLTRELEME MANTIĞI ---
   const filteredPeople = people.filter(person => {
-    // 1. Tip Filtresi (Pilot mu Yolcu mu?)
-    if (filterType !== 'All' && person.type !== filterType) return false;
-    
-    // 2. İsim Arama (Ahmet, Bekir...)
+
+    // a) Tip Filtresi (Çoklu Seçim Kontrolü)
+    // Eğer liste boşsa HEPSİNİ göster, doluysa SADECE listedekileri göster
+    if (selectedFilters.length > 0 && !selectedFilters.includes(person.type)) {
+        return false;
+    }
+
+    // b) İsim Arama
     if (searchTerm && !person.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
 
-    // 3. Rol/Flight Arama (HB1001, Senior, Business...)
+    // c) Rol/Flight Arama
     if (roleFilter && !JSON.stringify(person).toLowerCase().includes(roleFilter.toLowerCase())) return false;
 
     return true;
@@ -49,11 +74,14 @@ export default function GlobalManifestPage() {
   // SAYFALAMA HESAPLARI
   const totalPages = Math.ceil(filteredPeople.length / itemsPerPage);
   const currentItems = filteredPeople.slice(
-    (currentPage - 1) * itemsPerPage, 
+    (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
   if (loading) return <div className="page-container"><p>Loading Global Data...</p></div>;
+
+  // Butonları oluşturmak için bir yardımcı liste
+  const filterOptions = ['Pilot', 'Cabin Crew', 'Passenger'];
 
   return (
     <div className="page-container">
@@ -66,55 +94,79 @@ export default function GlobalManifestPage() {
       </div>
 
       <div className="card">
-        {/* --- KONTROL PANELİ (Filtreler) --- */}
+        {/* --- KONTROL PANELİ --- */}
         <div style={{
-            display:'flex', gap:'15px', flexWrap:'wrap', 
+            display:'flex', gap:'15px', flexWrap:'wrap',
             background:'#f8f9fa', padding:'15px', borderRadius:'10px', marginBottom:'20px'
         }}>
-            
-            {/* 1. TİP SEÇİMİ */}
+
+            {/* ÇOKLU SEÇİM BUTONLARI */}
             <div>
-                <label style={{fontWeight:'bold', display:'block', marginBottom:'5px'}}>Filter by Type:</label>
+                <label style={{fontWeight:'bold', display:'block', marginBottom:'5px'}}>Filter by Type (Multi-select):</label>
                 <div className="filter-buttons" style={{display:'flex', gap:'5px'}}>
-                    {['All', 'Pilot', 'Cabin Crew', 'Passenger'].map(type => (
-                        <button 
-                            key={type}
-                            onClick={() => { setFilterType(type); setCurrentPage(1); }}
-                            style={{
-                                padding: '6px 12px',
-                                border: '1px solid #ddd',
-                                borderRadius: '20px',
-                                backgroundColor: filterType === type ? '#3498db' : 'white',
-                                color: filterType === type ? 'white' : '#333',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            {type}
-                        </button>
-                    ))}
+
+                    {/* ALL BUTONU */}
+                    <button
+                        onClick={() => toggleFilter('All')}
+                        style={{
+                            padding: '6px 12px',
+                            border: '1px solid #ddd',
+                            borderRadius: '20px',
+                            // Liste boşsa 'All' aktiftir
+                            backgroundColor: selectedFilters.length === 0 ? '#2c3e50' : 'white',
+                            color: selectedFilters.length === 0 ? 'white' : '#333',
+                            cursor: 'pointer',
+                            fontWeight: 'bold'
+                        }}
+                    >
+                        All
+                    </button>
+
+                    {/* DİĞER TİPLER */}
+                    {filterOptions.map(type => {
+                        const isActive = selectedFilters.includes(type);
+                        return (
+                            <button
+                                key={type}
+                                onClick={() => toggleFilter(type)}
+                                style={{
+                                    padding: '6px 12px',
+                                    border: '1px solid #ddd',
+                                    borderRadius: '20px',
+                                    // Aktifse Mavi, değilse Beyaz
+                                    backgroundColor: isActive ? '#3498db' : 'white',
+                                    color: isActive ? 'white' : '#333',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s'
+                                }}
+                            >
+                                {type} {isActive && '✓'}
+                            </button>
+                        );
+                    })}
                 </div>
             </div>
 
-            {/* 2. İSİM ARAMA */}
+            {/* İSİM ARAMA */}
             <div style={{flex:1, minWidth:'200px'}}>
                 <label style={{fontWeight:'bold', display:'block', marginBottom:'5px'}}>Search Name:</label>
-                <input 
-                    type="text" 
-                    placeholder="e.g. Ahmet, John..." 
+                <input
+                    type="text"
+                    placeholder="e.g. Ahmet, John..."
                     value={searchTerm}
-                    onChange={e => setSearchTerm(e.target.value)}
+                    onChange={e => { setSearchTerm(e.target.value); setCurrentPage(1); }}
                     style={{width:'100%', padding:'8px', borderRadius:'5px', border:'1px solid #ccc'}}
                 />
             </div>
 
-            {/* 3. DETAY ARAMA (Uçuş No veya Rol) */}
+            {/* DETAY ARAMA */}
             <div style={{flex:1, minWidth:'200px'}}>
                 <label style={{fontWeight:'bold', display:'block', marginBottom:'5px'}}>Search Flight / Role:</label>
-                <input 
-                    type="text" 
-                    placeholder="e.g. HB1001, Senior, Business..." 
+                <input
+                    type="text"
+                    placeholder="e.g. HB1001, Senior..."
                     value={roleFilter}
-                    onChange={e => setRoleFilter(e.target.value)}
+                    onChange={e => { setRoleFilter(e.target.value); setCurrentPage(1); }}
                     style={{width:'100%', padding:'8px', borderRadius:'5px', border:'1px solid #ccc'}}
                 />
             </div>
@@ -139,23 +191,21 @@ export default function GlobalManifestPage() {
                             <tr key={person.unique_id}>
                                 <td style={{fontSize:'1.5em', textAlign:'center'}}>{person.avatar}</td>
                                 <td style={{fontWeight:'bold'}}>{person.name}</td>
-                                
-                                {/* TİP BADGE */}
+
                                 <td>
                                     <span className={`ticket-badge ${person.type === 'Passenger' ? 'economy' : 'business'}`}
                                           style={{
-                                              backgroundColor: person.type === 'Pilot' ? '#2c3e50' : 
+                                              backgroundColor: person.type === 'Pilot' ? '#2c3e50' :
                                                               (person.type === 'Passenger' ? '#95a5a6' : '#e67e22')
                                           }}>
                                         {person.type}
                                     </span>
                                 </td>
 
-                                {/* ROL / KOLTUK */}
                                 <td>
                                     {person.type === 'Passenger' ? (
                                         <span>
-                                            {person.role} 
+                                            {person.role}
                                             {person.seat && <b style={{marginLeft:'5px', color:'#2980b9'}}>({person.seat})</b>}
                                         </span>
                                     ) : (
@@ -163,7 +213,6 @@ export default function GlobalManifestPage() {
                                     )}
                                 </td>
 
-                                {/* UÇUŞ BİLGİSİ (ÖNEMLİ!) */}
                                 <td style={{color:'#8e44ad', fontWeight:'bold'}}>{person.flight}</td>
                                 <td>{person.date}</td>
                             </tr>

@@ -27,40 +27,38 @@ export default function FlightCrewPage() {
         if (response.status === 401) {
             localStorage.removeItem('access_token');
             window.location.href = '/';
-            throw new Error("Oturum süresi doldu.");
+            throw new Error("The session has expired.");
         }
-        if (!response.ok) throw new Error("Veri hatası");
+        if (!response.ok) throw new Error("Data Error");
         return response.json();
     })
     .then(data => {
-        // Eğer API paginated (sayfalı) dönerse veri data.results içinde olabilir.
-        // Array mi yoksa Obje mi geldiğini kontrol edip set ediyoruz.
         const crewData = Array.isArray(data) ? data : (data.results || []);
-        console.log("Kabin Ekibi Verisi:", crewData);
+        console.log("Cabincrew data:", crewData);
         setCrewMembers(crewData);
         setLoading(false);
     })
     .catch(error => {
-        console.error("Fetch Hatası:", error);
+        console.error("Fetch Error:", error);
         setLoading(false);
     });
   }, []);
 
-  if (loading) return <div className="page-container"><p>Kabin ekibi yükleniyor...</p></div>;
+  if (loading) return <div className="page-container"><p>Cabin crew loading...</p></div>;
 
   return (
     <div className="page-container">
-      <h2 className="page-title">Uçuş Ekibi (Cabin Crew)</h2>
+      <h2 className="page-title">Cabin Crew</h2>
       <div className="card">
         <table className="styled-table">
           <thead>
             <tr>
               <th>ID</th>
-              <th>İsim</th>
-              <th>Rol / Kıdem</th>
-              <th>Yaş / Uyruk</th>
-              <th>Bildiği Diller</th>
-              <th>Kısıtlamalar / Tarifler</th>
+              <th>Crew Info</th>
+              <th>Seniority</th>
+              <th>Age / Nationality</th>
+              <th>Known Languages</th>
+              <th>Vehicle Restriction / Recipes</th>
             </tr>
           </thead>
           <tbody>

@@ -4,18 +4,14 @@ export default function PassengersPage() {
   const [passengers, setPassengers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // useEffect bloğunun içi:
   useEffect(() => {
     const apiUrl = "http://127.0.0.1:8000/api/passengers/";
 
     // 1. Token'ı cepten çıkar
     const token = localStorage.getItem('access_token');
 
-    // Token yoksa login'e geri postala
     if (!token) {
-        console.warn("Token yok, login sayfasına yönlendiriliyor...");
-        // React Router kullanıyorsan: navigate('/login');
-        // Kullanmıyorsan:
+        console.warn("Missing Token, redirecting to login page...");
         window.location.href = '/';
         return;
     }
@@ -24,16 +20,14 @@ export default function PassengersPage() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        // 2. Token'ı göster (Bearer şeması standarttır)
         'Authorization': `Bearer ${token}`
       }
     })
     .then(response => {
-        // Eğer Token süresi dolmuşsa (401), kullanıcıyı logine at
         if (response.status === 401) {
-            localStorage.removeItem('access_token'); // Çürük token'ı sil
+            localStorage.removeItem('access_token');
             window.location.href = '/';
-            throw new Error("Oturum süresi doldu.");
+            throw new Error("The session has expired.");
         }
         return response.json();
     })
@@ -43,30 +37,30 @@ export default function PassengersPage() {
     })
     // ... catch bloğu aynı
       .catch(error => {
-        console.error("Hata:", error);
+        console.error("Error:", error);
         setLoading(false);
       });
   }, []);
 
   if (loading) {
-    return <div className="page-container"><p>Yükleniyor...</p></div>;
+    return <div className="page-container"><p>Loading...</p></div>;
   }
 
   return (
     <div className="page-container">
-      <h2 className="page-title">Yolcu Listesi</h2>
-      <p className="page-subtitle">Anlık uçuş yolcu kayıtları ve durumları.</p>
+      <h2 className="page-title">Passenger List</h2>
+      <p className="page-subtitle">Real-time flight passenger records and statuses.</p>
 
       <div className="card">
         <table className="styled-table">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Yolcu Bilgisi</th>
-              <th>Yaş / Cinsiyet</th>
-              <th>Milliyet</th>
-              <th>Koltuk Tipi</th>
-              <th>Uçuş No</th>
+              <th>Passenger Info</th>
+              <th>Age / Gender</th>
+              <th>Nationality</th>
+              <th>Seat Type</th>
+              <th>Flight Number</th>
             </tr>
           </thead>
           <tbody>

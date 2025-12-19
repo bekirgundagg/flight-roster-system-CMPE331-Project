@@ -21,7 +21,7 @@ export default function PilotsPage() {
       }
     })
     .then(response => {
-        if (!response.ok) throw new Error("Veri hatası");
+        if (!response.ok) throw new Error("Data error");
         return response.json();
     })
     .then(data => {
@@ -29,12 +29,12 @@ export default function PilotsPage() {
         setLoading(false);
     })
     .catch(error => {
-        console.error("Hata:", error);
+        console.error("Error:", error);
         setLoading(false);
     });
   }, []);
 
-  if (loading) return <div className="page-container"><p>Pilot verileri yükleniyor...</p></div>;
+  if (loading) return <div className="page-container"><p>Pilot datas are loading...</p></div>;
 
   return (
     <div className="page-container">
@@ -44,11 +44,11 @@ export default function PilotsPage() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Pilot İsmi</th>
-              <th>Kıdem (Level)</th>
-              <th>Yaş / Uyruk</th>
-              <th>Bildiği Diller</th>
-              <th>Lisans Kısıtlaması</th>
+              <th>Pilot Name</th>
+              <th>Seniority Level</th>
+              <th>Age</th>
+              <th>Known Languages</th>
+              <th>Vehicle Restriction</th>
             </tr>
           </thead>
           <tbody>

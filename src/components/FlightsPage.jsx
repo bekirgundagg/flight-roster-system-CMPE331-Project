@@ -23,11 +23,11 @@ export default function FlightsPage() {
       }
     })
     .then(res => {
-        if (!res.ok) throw new Error("Veri çekilemedi");
+        if (!res.ok) throw new Error("Data Error");
         return res.json();
     })
     .then(data => {
-        console.log("Uçuş Verileri:", data); // Konsoldan yapıyı kontrol edebilirsin
+        console.log("Flight datas:", data);
         setFlights(data);
         setLoading(false);
     })
@@ -37,7 +37,6 @@ export default function FlightsPage() {
     });
   }, []);
 
-  // Tarihi daha okunabilir yapmak için yardımcı fonksiyon
   const formatDate = (dateString) => {
     if (!dateString) return "-";
     const date = new Date(dateString);
@@ -47,7 +46,7 @@ export default function FlightsPage() {
     });
   };
 
-  if (loading) return <div className="page-container"><p>Uçuşlar yükleniyor...</p></div>;
+  if (loading) return <div className="page-container"><p>Flights are loading...</p></div>;
 
   return (
     <div className="page-container">
@@ -56,13 +55,13 @@ export default function FlightsPage() {
         <table className="styled-table">
           <thead>
             <tr>
-              <th>Uçuş No</th>
-              <th>Kalkış (Nereden)</th>
-              <th>Varış (Nereye)</th>
-              <th>Tarih/Saat</th>
-              <th>Uçak Tipi</th>
-              <th>Süre</th>
-              <th>Detay</th>
+              <th>Flight Number</th>
+              <th>Soruce</th>
+              <th>Destination</th>
+              <th>Date</th>
+              <th>Vehicle Type</th>
+              <th>Duration</th>
+              <th>Details</th>
             </tr>
           </thead>
           <tbody>
@@ -86,14 +85,14 @@ export default function FlightsPage() {
                 {/* VehicleTypeSerializer'dan gelen model bilgisi (Not: modelde 'model_name' olduğunu varsaydım create metoduna bakarak) */}
                 <td>{flight.vehicle_type?.model_name || flight.vehicle_type?.name || "-"}</td>
 
-                <td>{flight.duration_minutes} dk</td>
+                <td>{flight.duration_minutes} min</td>
 
                 <td>
                     <button
                         className="action-btn"
                         onClick={() => navigate(`/roster/${flight.flight_number}`)}
                     >
-                        Ekibi Gör
+                        Show Details
                     </button>
                 </td>
               </tr>
