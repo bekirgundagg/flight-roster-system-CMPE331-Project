@@ -8,24 +8,33 @@ import PassengersPage from "./components/PassengersPage";
 import FlightsPage from "./components/FlightsPage";
 import FlightRosterPage from "./components/FlightRosterPage";
 import logoImg from './assets/logo.png';
+import React, { useState } from 'react';
 function Dashboard() {
   const navigate = useNavigate();
+  const [isFlying, setIsFlying] = useState(false);
+
     const handleLogout = () => {
-    // 1. Token'ı sil
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token'); // Varsa bunu da sil
-
-    // 2. Kullanıcıya bilgi ver (Opsiyonel)
-    // alert("Başarıyla çıkış yapıldı.");
-
-    // 3. Giriş sayfasına yönlendir
-    navigate('/');
+    setIsFlying(true);
+    setTimeout(() => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        navigate('/');
+    }, 800);
     };
   return (
 
     <div className="dashboard-container">
-        <button onClick={handleLogout} className="logout-btn">
-              LOGOUT
+        <button onClick={handleLogout} className={`logout-btn ${isFlying ? 'flying' : ''}`} disabled={isFlying}>
+              <span className="btn-text">Logout</span>
+            {/* App.jsx içindeki <svg> kısmını bununla değiştir */}
+<svg
+    className="plane-icon"
+    viewBox="0 0 24 24" /* Standart boyut */
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+</svg>
           </button>
         <img src={logoImg} alt="HvB Logo" className="dashboard-logo" />
       <h1 className="dashboard-title">HvB Team Dashboard</h1>

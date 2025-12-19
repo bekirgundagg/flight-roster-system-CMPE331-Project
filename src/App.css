@@ -341,31 +341,82 @@ body {
 /* src/App.css */
 
 .logout-btn {
-    /* KONUMLANDIRMA (Aynı kalıyor) */
     position: absolute;
     top: 30px;
     right: 30px;
     z-index: 1000;
 
-    padding: 8px 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
+    /* Boyut ve Stil */
+    width: 120px; /* Sabit genişlik verelim ki animasyonda bozulmasın */
+    height: 40px;
     border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-
-    /* ŞEFFAFLIK AYARLARI */
     background-color: transparent;
     border: 2px solid rgba(255, 255, 255, 0.6);
     color: rgba(255, 255, 255, 0.9);
-    box-shadow: none;
-    backdrop-filter: blur(5px);
+    cursor: pointer;
+    overflow: hidden; /* Uçak butonun dışına taşarsa görünmesin (veya görünsün istersen bunu sil) */
+    transition: all 0.3s ease;
+
+    /* İçeriği Ortala */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
-.logout-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Hafif beyaz dolgu */
-    border-color: rgba(255, 255, 255, 1);       /* Tam beyaz çerçeve */
-    color: white;                               /* Tam beyaz yazı */
+/* Hover Efekti (Sadece uçmuyorken) */
+.logout-btn:not(.flying):hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 1);
     transform: translateY(-2px);
+}
+
+/* --- İÇERİK AYARLARI --- */
+
+/* 1. YAZI (Logout) */
+.btn-text {
+    transition: opacity 0.2s ease;
+}
+
+/* Animasyon başlayınca yazı kaybolsun */
+.logout-btn.flying .btn-text {
+    opacity: 0;
+}
+
+/* 2. UÇAK İKONU */
+.plane-icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    opacity: 0; /* Başlangıçta görünmez */
+
+    /* ÖNEMLİ: Uçak normalde yukarı bakıyor.
+       rotate(90deg) diyerek onu SAĞA çeviriyoruz.
+       translateX(-50px) ile butonun solunda gizliyoruz. */
+    transform: translateX(-50px) rotate(90deg);
+
+    transition: all 0.1s;
+}
+
+/* --- UÇUŞ ANİMASYONU --- */
+.logout-btn.flying .plane-icon {
+    opacity: 1;
+    animation: takeOff 1.5s forwards ease-in-out; /* Süreyi biraz uzattım (1.5s) daha net görünsün */
+}
+
+@keyframes takeOff {
+    0% {
+        /* BAŞLANGIÇ: Sol altta, SAĞA bakıyor (90deg) */
+        transform: translateX(-30px) translateY(10px) rotate(90deg);
+        opacity: 0;
+    }
+    20% {
+        /* GÖRÜNME: Butonun içine girdi */
+        opacity: 1;
+    }
+    100% {
+        /* BİTİŞ: Sağ üst köşeden çıkıyor.
+           rotate(45deg): Burnunu hafif yukarı kaldırıp havalanma efekti veriyoruz. */
+        transform: translateX(120px) translateY(-60px) rotate(45deg);
+        opacity: 0;
+    }
 }
