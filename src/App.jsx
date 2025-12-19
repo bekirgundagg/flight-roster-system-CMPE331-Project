@@ -10,12 +10,25 @@ import FlightRosterPage from "./components/FlightRosterPage";
 import logoImg from './assets/logo.png';
 function Dashboard() {
   const navigate = useNavigate();
+    const handleLogout = () => {
+    // 1. Token'ı sil
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token'); // Varsa bunu da sil
 
+    // 2. Kullanıcıya bilgi ver (Opsiyonel)
+    // alert("Başarıyla çıkış yapıldı.");
+
+    // 3. Giriş sayfasına yönlendir
+    navigate('/');
+    };
   return (
 
     <div className="dashboard-container">
-        <img src={logoImg} alt="SkyTeam Logo" className="dashboard-logo" />
-      <h1 className="dashboard-title">HvB Team Dashboard ✈️</h1>
+        <button onClick={handleLogout} className="logout-btn">
+              LOGOUT
+          </button>
+        <img src={logoImg} alt="HvB Logo" className="dashboard-logo" />
+      <h1 className="dashboard-title">HvB Team Dashboard</h1>
 
       <div className="nav-buttons">
         <button onClick={() => navigate("/dashboard/pilots")}>Pilots</button>
@@ -24,6 +37,7 @@ function Dashboard() {
         <button onClick={() => navigate("/dashboard/flights")}>Flights</button>
           <button onClick={() => navigate("/dashboard/global-manifest")}>Roster Management</button>
       </div>
+
     </div>
   );
 }

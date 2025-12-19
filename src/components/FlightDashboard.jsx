@@ -7,7 +7,7 @@ function FlightDashboard() {
   return (
     <div style={{ padding: "20px" }}>
       <h1 style={{ fontSize: "40px", display: "flex", alignItems: "center" }}>
-        HvB Team Dashboard ✈️
+        HvB Team Dashboard
       </h1>
 
       <div className="nav-buttons">

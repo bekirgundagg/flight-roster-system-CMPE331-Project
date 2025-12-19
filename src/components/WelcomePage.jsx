@@ -11,7 +11,7 @@ export default function WelcomePage() {
   return (
     <div className="welcome-container">
       <div className="welcome-box">
-        <h1>Welcome to SkyTeam Flight System</h1>
+        <h1>Welcome to HvB Flight Roster Systems</h1>
         <button className="enter-button" onClick={handleEnter}>
           Enter
         </button>
