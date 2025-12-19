@@ -7,8 +7,7 @@ export default function GlobalManifestPage() {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // --- 1. DEĞİŞİKLİK: FİLTRE STATE'İ ARTIK BİR DİZİ (ARRAY) ---
-  // Başlangıçta boş [] bırakıyoruz, bu "All" (Hepsi) anlamına gelecek.
+  // --- FİLTRE STATE'İ ---
   const [selectedFilters, setSelectedFilters] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,31 +32,27 @@ export default function GlobalManifestPage() {
     });
   }, []);
 
-  // --- 2. DEĞİŞİKLİK: ÇOKLU SEÇİM FONKSİYONU ---
+  // --- ÇOKLU SEÇİM FONKSİYONU ---
   const toggleFilter = (type) => {
-    setCurrentPage(1); // Filtre değişince sayfa 1'e dön
+    setCurrentPage(1);
 
-    // Eğer 'All' butonuna basıldıysa listeyi temizle (Her şeyi göster)
     if (type === 'All') {
         setSelectedFilters([]);
         return;
     }
 
-    // Eğer buton zaten seçiliyse -> Listeden Çıkar
     if (selectedFilters.includes(type)) {
         setSelectedFilters(prev => prev.filter(item => item !== type));
     }
-    // Seçili değilse -> Listeye Ekle
     else {
         setSelectedFilters(prev => [...prev, type]);
     }
   };
 
-  // --- 3. DEĞİŞİKLİK: FİLTRELEME MANTIĞI ---
+  // --- FİLTRELEME MANTIĞI ---
   const filteredPeople = people.filter(person => {
 
-    // a) Tip Filtresi (Çoklu Seçim Kontrolü)
-    // Eğer liste boşsa HEPSİNİ göster, doluysa SADECE listedekileri göster
+    // a) Tip Filtresi
     if (selectedFilters.length > 0 && !selectedFilters.includes(person.type)) {
         return false;
     }
@@ -80,7 +75,6 @@ export default function GlobalManifestPage() {
 
   if (loading) return <div className="page-container"><p>Loading Global Data...</p></div>;
 
-  // Butonları oluşturmak için bir yardımcı liste
   const filterOptions = ['Pilot', 'Cabin Crew', 'Passenger'];
 
   return (
@@ -112,7 +106,6 @@ export default function GlobalManifestPage() {
                             padding: '6px 12px',
                             border: '1px solid #ddd',
                             borderRadius: '20px',
-                            // Liste boşsa 'All' aktiftir
                             backgroundColor: selectedFilters.length === 0 ? '#2c3e50' : 'white',
                             color: selectedFilters.length === 0 ? 'white' : '#333',
                             cursor: 'pointer',
@@ -133,7 +126,6 @@ export default function GlobalManifestPage() {
                                     padding: '6px 12px',
                                     border: '1px solid #ddd',
                                     borderRadius: '20px',
-                                    // Aktifse Mavi, değilse Beyaz
                                     backgroundColor: isActive ? '#3498db' : 'white',
                                     color: isActive ? 'white' : '#333',
                                     cursor: 'pointer',
@@ -190,7 +182,27 @@ export default function GlobalManifestPage() {
                         currentItems.map((person) => (
                             <tr key={person.unique_id}>
                                 <td style={{fontSize:'1.5em', textAlign:'center'}}>{person.avatar}</td>
-                                <td style={{fontWeight:'bold'}}>{person.name}</td>
+
+                                {/* --- GÜNCELLENEN KISIM: İSİM, EBEVEYN VE ŞEF MENÜSÜ --- */}
+                                <td>
+                                    <div style={{display:'flex', flexDirection:'column'}}>
+                                        <span style={{fontWeight:'bold'}}>{person.name}</span>
+
+                                        {/* 1. Eğer bebekse ve ebeveyn ismi backend'den geldiyse göster */}
+                                        {person.is_infant && person.parent_name && (
+                                             <span style={{fontSize: '0.75em', color: '#e67e22', fontStyle:'italic'}}>
+                                                Parent: {person.parent_name}
+                                             </span>
+                                        )}
+
+                                        {/* 2. Eğer Şef ise ve Menü geldiyse göster */}
+                                        {person.role === 'chef' && person.chef_menu && (
+                                            <span style={{fontSize: '0.75em', color: '#e67e22', fontStyle:'italic', marginTop:'2px', display: 'block',maxWidth: '100px',whiteSpace: 'normal',lineHeight: '1.2'}}>
+                                                {person.chef_menu}
+                                            </span>
+                                        )}
+                                    </div>
+                                </td>
 
                                 <td>
                                     <span className={`ticket-badge ${person.type === 'Passenger' ? 'economy' : 'business'}`}

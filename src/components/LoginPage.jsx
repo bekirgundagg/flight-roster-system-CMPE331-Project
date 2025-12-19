@@ -59,7 +59,8 @@ const LoginPage = () => {
   return (
     <div className="login-container"> {/* CSS class ismini senin dosyanla eşleştir */}
       <div className="login-card">
-        <h2>SkyTeam System</h2>
+
+        <h2>HvB Team System</h2>
         <p>Please login to continue</p>
 
         <form onSubmit={handleSubmit}>

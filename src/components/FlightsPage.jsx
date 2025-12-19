@@ -50,7 +50,7 @@ export default function FlightsPage() {
 
   return (
     <div className="page-container">
-      <h2 className="page-title">Uçuş Listesi</h2>
+      <h2 className="page-title">Flight List</h2>
       <div className="card">
         <table className="styled-table">
           <thead>

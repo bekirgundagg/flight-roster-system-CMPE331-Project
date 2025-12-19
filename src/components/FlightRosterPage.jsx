@@ -52,21 +52,19 @@ export default function FlightRosterPage() {
     .then(res => res.json())
     .then(data => {
         if (data.status === 'success') {
-            alert("Ekip başarıyla atandı! Sayfa yenileniyor...");
+            alert("The team has been successfully assigned! Page is refreshing....");
             window.location.reload();
         } else {
             alert("Hata: " + (data.message || data.error));
         }
     })
-    .catch(err => alert("Bağlantı hatası"));
+    .catch(err => alert("Connection Error"));
   };
 
   // --- YENİ: JSON Export Fonksiyonu ---
   const handleExportJson = () => {
     if (!rosterData) return;
 
-    // 1. İndirilecek dosya ismini hazırla (Örn: Roster-HB0001.json)
-    // flight verisi aşağıda tanımlandığı için burada rosterData.flight üzerinden erişiyoruz
     const fileName = `Roster-${rosterData.flight.flight_number}.json`;
 
     // 2. Veriyi JSON string'e çevir
@@ -155,7 +153,7 @@ export default function FlightRosterPage() {
              {new Date(flight.departure_datetime).toLocaleString('tr-TR')} | {flight.vehicle_type?.model_name} ({seatCount} seats)
            </p>
         </div>
-        <button className="action-btn" onClick={() => navigate(-1)}>Geri Dön</button>
+        <button className="action-btn" onClick={() => navigate(-1)}>Go Back</button>
       </div>
 
       <div className="roster-layout">
@@ -216,7 +214,7 @@ export default function FlightRosterPage() {
                     </tbody>
                 </table>
                 ) : (
-                    <p style={{color:'#999', padding:'10px'}}>Henüz pilot atanmamış.</p>
+                    <p style={{color:'#999', padding:'10px'}}>No pilot has been assigned yet.</p>
                 )}
             </div>
 
@@ -247,7 +245,7 @@ export default function FlightRosterPage() {
                     </tbody>
                 </table>
                 ) : (
-                    <p style={{color:'#999', padding:'10px'}}>Henüz kabin ekibi atanmamış.</p>
+                    <p style={{color:'#999', padding:'10px'}}>No Crew has been assigned yet.</p>
                 )}
             </div>
 
@@ -280,7 +278,7 @@ export default function FlightRosterPage() {
                         ))}
                     </ul>
                 ) : (
-                    <p style={{padding:'10px', color:'#999'}}>Menü bilgisi bulunamadı veya henüz oluşturulmadı.</p>
+                    <p style={{padding:'10px', color:'#999'}}>No Recipe has been assigned yet.</p>
                 )}
             </div>
 
