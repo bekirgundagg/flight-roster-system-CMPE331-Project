@@ -31,7 +31,7 @@ class CabinCrewLoadTest(TransactionTestCase):
             "gender": "Female",
             "nationality": "TR",
             "attendant_type": "regular",
-            "senority_level": "junior",
+            "seniority_level": "junior",
             "known_languages": [self.language.id],
             "vehicle_restrictions": [self.vehicle.id]
         }

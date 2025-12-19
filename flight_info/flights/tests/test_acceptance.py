@@ -23,9 +23,9 @@ class FlightAcceptanceTest(APITestCase):
             "departure_datetime": (timezone.now() + timedelta(days=1)).isoformat(),
             "duration_minutes": 180,
             "distance_km": 2000,
-            "source": self.source.id,
-            "destination": self.dest.id,
-            "vehicle": self.vehicle.id,
+            "source_airport_code": self.source.code,
+            "destination_airport_code": self.dest.code,
+            "vehicle_type_model": self.vehicle.name,
             "notes": "Acceptance Test Flight"
         }
 

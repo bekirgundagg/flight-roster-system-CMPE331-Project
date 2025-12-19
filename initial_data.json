@@ -104,12 +104,12 @@
   "model": "cabincrew_api.cabincrew",
   "pk": "CC001",
   "fields": {
-    "name": "Ayþe Yýlmaz",
+    "name": "Ayï¿½e Yï¿½lmaz",
     "age": 38,
     "gender": "Female",
     "nationality": "Turkish",
     "attendant_type": "chef",
-    "senority_level": "chef",
+    "seniority_level": "chef",
     "known_languages": [
       1,
       2
@@ -130,7 +130,7 @@
     "gender": "Male",
     "nationality": "Turkish",
     "attendant_type": "chief",
-    "senority_level": "senior",
+    "seniority_level": "senior",
     "known_languages": [
       1,
       2,
@@ -153,7 +153,7 @@
     "gender": "Female",
     "nationality": "Turkish",
     "attendant_type": "chief",
-    "senority_level": "senior",
+    "seniority_level": "senior",
     "known_languages": [
       1,
       2,
@@ -174,7 +174,7 @@
     "gender": "Male",
     "nationality": "English",
     "attendant_type": "regular",
-    "senority_level": "junior",
+    "seniority_level": "junior",
     "known_languages": [
       2,
       5,
@@ -195,7 +195,7 @@
     "gender": "Female",
     "nationality": "Mexican",
     "attendant_type": "regular",
-    "senority_level": "junior",
+    "seniority_level": "junior",
     "known_languages": [
       2,
       3,
@@ -211,12 +211,12 @@
   "model": "cabincrew_api.cabincrew",
   "pk": "CC006",
   "fields": {
-    "name": "Murat Þen",
+    "name": "Murat ï¿½en",
     "age": 27,
     "gender": "Male",
     "nationality": "Turkish",
     "attendant_type": "regular",
-    "senority_level": "junior",
+    "seniority_level": "junior",
     "known_languages": [
       1,
       2,
@@ -231,12 +231,12 @@
   "model": "cabincrew_api.cabincrew",
   "pk": "CC007",
   "fields": {
-    "name": "Cem Yücel",
+    "name": "Cem Yï¿½cel",
     "age": 32,
     "gender": "Male",
     "nationality": "Turkish",
     "attendant_type": "regular",
-    "senority_level": "junior",
+    "seniority_level": "junior",
     "known_languages": [
       1,
       2,
@@ -252,12 +252,12 @@
   "model": "cabincrew_api.cabincrew",
   "pk": "CC008",
   "fields": {
-    "name": "Selin Koç",
+    "name": "Selin Koï¿½",
     "age": 38,
     "gender": "Female",
     "nationality": "Turkish",
     "attendant_type": "regular",
-    "senority_level": "junior",
+    "seniority_level": "junior",
     "known_languages": [
       1,
       2,

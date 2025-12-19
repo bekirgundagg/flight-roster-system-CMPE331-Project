@@ -25,7 +25,7 @@ class FlightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flight
         fields = [
-            'flight_number', 'departure_datetime', 'duration_minutes', 'distance_km',
+            'id','flight_number', 'departure_datetime', 'duration_minutes', 'distance_km',
             'source_airport', 'destination_airport', 'vehicle_type',
             'source_airport_code', 'destination_airport_code', 'vehicle_type_model'
         ]
@@ -39,6 +39,6 @@ class FlightSerializer(serializers.ModelSerializer):
         # Model alan isimlerine göre atamalar
         validated_data['source'] = Airport.objects.get(code=source_code)
         validated_data['destination'] = Airport.objects.get(code=destination_code)
-        validated_data['vehicle'] = VehicleType.objects.get(model_name=vehicle_model)
+        validated_data['vehicle'] = VehicleType.objects.get(name=vehicle_model)
 
         return Flight.objects.create(**validated_data)

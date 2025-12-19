@@ -41,9 +41,9 @@ class FlightLoadTest(TransactionTestCase):
             "departure_datetime": (timezone.now() + timedelta(days=index)).isoformat(),
             "duration_minutes": 150,
             "distance_km": 1200,
-            "source": self.source.id,
-            "destination": self.dest.id,
-            "vehicle": self.vehicle.id,
+            "source_airport_code": self.source.code,
+            "destination_airport_code": self.dest.code,
+            "vehicle_type_model": self.vehicle.name,
             "notes": f"Load test flight {index}"
         }
         

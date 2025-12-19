@@ -22,7 +22,7 @@ class CabinCrewPerformanceTest(APITestCase):
                 gender="Female",
                 nationality="TR",
                 attendant_type="regular",
-                senority_level="junior"
+                seniority_level="junior"
             )
             for i in range(50)
         ]
@@ -53,7 +53,7 @@ class CabinCrewPerformanceTest(APITestCase):
             "gender": "Male",
             "nationality": "US",
             "attendant_type": "chief",
-            "senority_level": "senior",
+            "seniority_level": "senior",
             "vehicle_restrictions": [v_type.id]
         }
 

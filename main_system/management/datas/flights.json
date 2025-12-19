@@ -1,0 +1,148 @@
+{
+  "airports": [
+    { "country": "Turkey", "city": "Istanbul", "name": "Istanbul Airport", "code": "IST" },
+    { "country": "United Kingdom", "city": "London", "name": "Heathrow Airport", "code": "LHR" },
+    { "country": "USA", "city": "New York", "name": "John F. Kennedy", "code": "JFK" },
+    { "country": "France", "city": "Paris", "name": "Charles de Gaulle Airport", "code": "CDG" },
+    { "country": "United Arab Emirates", "city": "Dubai", "name": "Dubai International Airport", "code": "DXB" },
+    { "country": "Germany", "city": "Frankfurt", "name": "Frankfurt Airport", "code": "FRA" }
+  ],
+  "vehicles": [
+    { "name": "Boeing 737", "seat_count": 180, "max_crew": 6, "max_passengers": 180 },
+    { "name": "Airbus A320", "seat_count": 150, "max_crew": 5, "max_passengers": 150 },
+    { "name": "Boeing 787-9", "seat_count": 260, "max_crew": 10, "max_passengers": 260 },
+    { "name": "Airbus A330-300", "seat_count": 300, "max_crew": 11, "max_passengers": 300 }
+  ],
+  "flights": [
+    {
+      "flight_number": "HB1001",
+      "source_code": "IST",
+      "destination_code": "LHR",
+      "vehicle_name": "Boeing 737",
+      "departure_datetime": "2025-12-25T08:00:00Z",
+      "duration_minutes": 240,
+      "distance_km": 2500,
+      "notes": "Christmas Flight"
+    },
+    {
+      "flight_number": "HB1002",
+      "source_code": "LHR",
+      "destination_code": "JFK",
+      "vehicle_name": "Boeing 787-9",
+      "departure_datetime": "2025-12-26T14:00:00Z",
+      "duration_minutes": 480,
+      "distance_km": 5500,
+      "notes": "Transatlantic"
+    },
+    {
+      "flight_number": "HB1003",
+      "source_code": "IST",
+      "destination_code": "FRA",
+      "vehicle_name": "Airbus A320",
+      "departure_datetime": "2025-12-27T09:30:00Z",
+      "duration_minutes": 180,
+      "distance_km": 1900,
+      "notes": "Business Route"
+    },
+    {
+      "flight_number": "HB1004",
+      "source_code": "FRA",
+      "destination_code": "LHR",
+      "vehicle_name": "Boeing 737",
+      "departure_datetime": "2025-12-27T14:15:00Z",
+      "duration_minutes": 90,
+      "distance_km": 650,
+      "notes": "Short Haul"
+    },
+    {
+      "flight_number": "HB1005",
+      "source_code": "CDG",
+      "destination_code": "IST",
+      "vehicle_name": "Airbus A320",
+      "departure_datetime": "2025-12-28T07:20:00Z",
+      "duration_minutes": 200,
+      "distance_km": 2250,
+      "notes": "Euro Connector"
+    },
+    {
+      "flight_number": "HB1006",
+      "source_code": "IST",
+      "destination_code": "DXB",
+      "vehicle_name": "Boeing 737",
+      "departure_datetime": "2025-12-29T20:00:00Z",
+      "duration_minutes": 270,
+      "distance_km": 3000,
+      "notes": "Evening Departure"
+    },
+    {
+      "flight_number": "HB1007",
+      "source_code": "DXB",
+      "destination_code": "JFK",
+      "vehicle_name": "Boeing 787-9",
+      "departure_datetime": "2025-12-30T02:10:00Z",
+      "duration_minutes": 840,
+      "distance_km": 11000,
+      "notes": "Long Haul"
+    },
+    {
+      "flight_number": "HB1008",
+      "source_code": "JFK",
+      "destination_code": "CDG",
+      "vehicle_name": "Airbus A330-300",
+      "departure_datetime": "2025-12-30T22:45:00Z",
+      "duration_minutes": 420,
+      "distance_km": 5850,
+      "notes": "Overnight Atlantic"
+    },
+    {
+      "flight_number": "HB1009",
+      "source_code": "LHR",
+      "destination_code": "CDG",
+      "vehicle_name": "Airbus A320",
+      "departure_datetime": "2025-12-31T10:10:00Z",
+      "duration_minutes": 75,
+      "distance_km": 350,
+      "notes": "Shuttle"
+    },
+    {
+      "flight_number": "HB1010",
+      "source_code": "CDG",
+      "destination_code": "FRA",
+      "vehicle_name": "Airbus A320",
+      "departure_datetime": "2025-12-31T16:40:00Z",
+      "duration_minutes": 75,
+      "distance_km": 450,
+      "notes": "Regional Hop"
+    },
+    {
+      "flight_number": "HB1011",
+      "source_code": "FRA",
+      "destination_code": "DXB",
+      "vehicle_name": "Boeing 787-9",
+      "departure_datetime": "2026-01-01T00:30:00Z",
+      "duration_minutes": 390,
+      "distance_km": 4800,
+      "notes": "New Year Redeye"
+    },
+    {
+      "flight_number": "HB1012",
+      "source_code": "DXB",
+      "destination_code": "IST",
+      "vehicle_name": "Boeing 737",
+      "departure_datetime": "2026-01-01T12:15:00Z",
+      "duration_minutes": 270,
+      "distance_km": 3000,
+      "notes": "Return Flight"
+    },
+    {
+      "flight_number": "HB2020",
+      "source_code": "IST",
+      "destination_code": "JFK",
+      "vehicle_name": "Boeing 787-9",
+      "departure_datetime": "2026-01-02T10:00:00Z",
+      "duration_minutes": 650,
+      "distance_km": 8000,
+      "notes": "New Year Flight"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
-
+import GlobalManifestPage from "./components/GlobalManifestPage";
 import LoginPage from "./components/LoginPage";
 import PilotsPage from "./components/PilotsPage";
 import FlightCrewPage from "./components/FlightCrewPage";
@@ -12,8 +12,7 @@ function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    // BURASI DEĞİŞTİ: Sınıf ismini 'dashboard-container' yaptık.
-    // CSS dosyasında .dashboard-container sınıfına ortalama kodlarını yazacaksın.
+
     <div className="dashboard-container">
       <h1 className="title">SkyTeam Dashboard ✈️</h1>
 
@@ -22,6 +21,7 @@ function Dashboard() {
         <button onClick={() => navigate("/dashboard/crew")}>Flight Crew</button>
         <button onClick={() => navigate("/dashboard/passengers")}>Passengers</button>
         <button onClick={() => navigate("/dashboard/flights")}>Flights</button>
+          <button onClick={() => navigate("/dashboard/global-manifest")}>Roster Management</button>
       </div>
     </div>
   );
@@ -33,7 +33,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
-
+        <Route path="/dashboard/global-manifest" element={<GlobalManifestPage />} />
         <Route path="/dashboard/pilots" element={<PilotsPage />} />
         <Route path="/dashboard/crew" element={<FlightCrewPage />} />
         <Route path="/dashboard/passengers" element={<PassengersPage />} />

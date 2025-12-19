@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'cabincrew_api',
     'rest_framework_simplejwt',
     'main_system',
+    'import_export',
 ]
 
 MIDDLEWARE = [

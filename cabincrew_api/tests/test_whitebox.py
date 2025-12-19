@@ -11,7 +11,7 @@ class CabinCrewWhiteBoxTest(SimpleTestCase):
             gender="Female",
             nationality="TR",
             attendant_type="regular",
-            senority_level="junior"
+            seniority_level="junior"
         )
 
         crew._state = MagicMock()
@@ -42,11 +42,11 @@ class CabinCrewWhiteBoxTest(SimpleTestCase):
         crew = CabinCrew(
             name="Logic Check",
             attendant_type="chief",
-            senority_level="senior"
+            seniority_level="senior"
         )
         
         crew._state = MagicMock()
         crew._state.db = None
 
         self.assertEqual(crew.attendant_type, "chief")
-        self.assertEqual(crew.senority_level, "senior")
+        self.assertEqual(crew.seniority_level, "senior")

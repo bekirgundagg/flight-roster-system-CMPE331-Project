@@ -13,7 +13,7 @@ class Language(models.Model):
         return self.lan_name
     
 class VehicleType(models.Model):
-    type_veh = models.CharField(max_length=10,unique=True)
+    type_veh = models.CharField(max_length=50,unique=True)
 
     class Meta:
         app_label = 'cabincrew_api'

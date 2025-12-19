@@ -78,9 +78,9 @@ def assign_cabin_crew(roster):
         return False
 
     # GRUPLAMA
-    seniors = list(candidates.filter(senority_level='senior'))
-    juniors = list(candidates.filter(senority_level='junior'))
-    chefs = list(candidates.filter(senority_level='chef'))
+    seniors = list(candidates.filter(seniority_level='senior'))
+    juniors = list(candidates.filter(seniority_level='junior'))
+    chefs = list(candidates.filter(seniority_level='chef'))
 
     # YETERLİLİK KONTROLÜ (MİNİMUM SAYILAR)
     if len(seniors) < 1:

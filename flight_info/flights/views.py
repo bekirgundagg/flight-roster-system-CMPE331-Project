@@ -13,7 +13,6 @@ from passengers.serializers import PassengerSerializer
 from main_system.services import create_roster_for_flight
 from main_system.models import FlightRoster
 
-
 class AirportViewSet(viewsets.ModelViewSet):
     queryset = Airport.objects.all()
     serializer_class = AirportSerializer
@@ -129,3 +128,58 @@ def get_flight_roster(request, flight_number):
         "crew": crew_data,
         "menu": menu_data
     })
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_global_manifest(request):
+    """
+    Sistemdeki TÜM uçuşların, TÜM personel ve yolcularını tek bir liste olarak döner.
+    """
+    all_rosters = FlightRoster.objects.select_related('flight').prefetch_related('pilots', 'cabin_crew',
+                                                                                 'passengers').all()
+
+    global_list = []
+
+    for roster in all_rosters:
+        flight_code = roster.flight.flight_number
+        flight_date = roster.flight.departure_datetime.strftime("%Y-%m-%d")
+
+        # 1. PİLOTLAR
+        for pilot in roster.pilots.all():
+            global_list.append({
+                "unique_id": f"pilot-{pilot.id}-{flight_code}",
+                "name": pilot.name,
+                "type": "Pilot",
+                "role": pilot.seniority_level,
+                "flight": flight_code,
+                "date": flight_date,
+                "avatar": "👨‍✈️"
+            })
+
+        # 2. KABİN EKİBİ
+        for crew in roster.cabin_crew.all():
+            global_list.append({
+                "unique_id": f"crew-{crew.attendant_id}-{flight_code}",
+                "name": crew.name,
+                "type": "Cabin Crew",
+                "role": crew.attendant_type,
+                "flight": flight_code,
+                "date": flight_date,
+                "avatar": "💁‍♀️"
+            })
+
+        # 3. YOLCULAR
+        for pax in roster.passengers.all():
+            global_list.append({
+                "unique_id": f"pax-{pax.id}-{flight_code}",
+                "name": pax.full_name,
+                "type": "Passenger",
+                "role": pax.seat_type or "Economy",
+                "seat": pax.seat_number,
+                "flight": flight_code,
+                "date": flight_date,
+                "avatar": "👤" if not pax.is_infant else "👶"
+            })
+
+    return Response(global_list)

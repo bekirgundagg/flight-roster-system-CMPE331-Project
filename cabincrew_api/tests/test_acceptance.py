@@ -21,7 +21,7 @@ class CabinCrewAcceptanceTest(APITestCase):
             "gender": "Female",
             "nationality": "TR",
             "attendant_type": "regular",
-            "senority_level": "junior",
+            "seniority_level": "junior",
             "known_languages": [self.lang_eng.id],
             "vehicle_restrictions": [self.vehicle_b737.id]
         }
@@ -43,13 +43,13 @@ class CabinCrewAcceptanceTest(APITestCase):
             gender="Male",
             nationality="TR",
             attendant_type="regular",
-            senority_level="junior"
+            seniority_level="junior"
         )
         
         detail_url = reverse("cabincrew-detail", args=[crew.attendant_id])
         promotion_payload = {
             "attendant_type": "chief",
-            "senority_level": "senior"
+            "seniority_level": "senior"
         }
         
         response = self.client.patch(detail_url, promotion_payload, format="json")
@@ -57,7 +57,7 @@ class CabinCrewAcceptanceTest(APITestCase):
         
         crew.refresh_from_db()
         self.assertEqual(crew.attendant_type, "chief")
-        self.assertEqual(crew.senority_level, "senior")
+        self.assertEqual(crew.seniority_level, "senior")
 
     def test_acceptance_resignation_process(self):
         crew = CabinCrew.objects.create(
@@ -67,7 +67,7 @@ class CabinCrewAcceptanceTest(APITestCase):
             gender="Female",
             nationality="DE",
             attendant_type="regular",
-            senority_level="senior"
+            seniority_level="senior"
         )
         detail_url = reverse("cabincrew-detail", args=[crew.attendant_id])
 

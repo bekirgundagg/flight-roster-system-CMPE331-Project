@@ -49,20 +49,20 @@ class FlightRosterSystemTest(TestCase):
 
         self.senior_crew = CabinCrew.objects.create(
             attendant_id="S001", name="Ayse Amir", age=30, gender="F", nationality="TR",
-            attendant_type="regular", senority_level="senior"
+            attendant_type="regular", seniority_level="senior"
         )
         self.senior_crew.vehicle_restrictions.add(self.crew_cert)
 
         for i in range(4):
             jr = CabinCrew.objects.create(
                 attendant_id=f"J0{i}", name=f"Junior {i}", age=22, gender="M", nationality="TR",
-                attendant_type="regular", senority_level="junior"
+                attendant_type="regular", seniority_level="junior"
             )
             jr.vehicle_restrictions.add(self.crew_cert)
 
         self.chef = CabinCrew.objects.create(
             attendant_id="C001", name="Mehmet Sef", age=40, gender="M", nationality="TR",
-            attendant_type="chef", senority_level="chef"
+            attendant_type="chef", seniority_level="chef"
         )
         self.chef.vehicle_restrictions.add(self.crew_cert)
         ChefRecipe.objects.create(chef=self.chef, recipe_name="Manti")
