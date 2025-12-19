@@ -254,6 +254,14 @@ body {
 }
 /* Sadece Ana Ekranı Ortala */
 .dashboard-container {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('./assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Tam Ekran Kaplama */
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -261,7 +269,45 @@ body {
   min-height: 80vh; /* Ekranın %80'i kadar yükseklik kapla ki ortalansın */
   text-align: center;
 }
+.dashboard-logo {
+  width: 160px; /* Logonun büyüklüğü */
+  height: auto;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+}
+.dashboard-title {
+  font-size: 3rem; /* Daha büyük başlık */
+  color: #ffffff;  /* BEYAZ YAZI */
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Okunabilirlik için siyah gölge */
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.nav-buttons {
+  display: flex;
+  gap: 0px;       /* Butonlar arası boşluk arttı */
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.nav-buttons button {
+  padding: 15px 35px;    /* Butonları şişirdik */
+  font-size: 1.2rem;     /* Yazı boyutu büyüdü */
+  border-radius: 12px;   /* Daha yuvarlak köşeler */
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 
+  /* Buton renkleri index.css'ten veya globalden geliyorsa burada ezebilirsin */
+  background-color: rgba(255, 255, 255, 0.9); /* Yarı saydam beyaz butonlar */
+  color: #2c3e50; /* Koyu yazı */
+  border: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.nav-buttons button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  background-color: #0000FF;
+}
 /* Butonların yan yana düzgün durması için (Varsa mevcut sınıfın) */
 .menu-buttons {
   display: flex;

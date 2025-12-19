@@ -7,14 +7,15 @@ import FlightCrewPage from "./components/FlightCrewPage";
 import PassengersPage from "./components/PassengersPage";
 import FlightsPage from "./components/FlightsPage";
 import FlightRosterPage from "./components/FlightRosterPage";
-
+import logoImg from './assets/logo.png';
 function Dashboard() {
   const navigate = useNavigate();
 
   return (
 
     <div className="dashboard-container">
-      <h1 className="title">SkyTeam Dashboard ✈️</h1>
+        <img src={logoImg} alt="SkyTeam Logo" className="dashboard-logo" />
+      <h1 className="dashboard-title">HvB Team Dashboard ✈️</h1>
 
       <div className="nav-buttons">
         <button onClick={() => navigate("/dashboard/pilots")}>Pilots</button>
