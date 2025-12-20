@@ -405,18 +405,44 @@ body {
 
 @keyframes takeOff {
     0% {
-        /* BAŞLANGIÇ: Sol altta, SAĞA bakıyor (90deg) */
+
         transform: translateX(-30px) translateY(10px) rotate(90deg);
         opacity: 0;
     }
     20% {
-        /* GÖRÜNME: Butonun içine girdi */
+
         opacity: 1;
     }
     100% {
-        /* BİTİŞ: Sağ üst köşeden çıkıyor.
-           rotate(45deg): Burnunu hafif yukarı kaldırıp havalanma efekti veriyoruz. */
+
         transform: translateX(120px) translateY(-60px) rotate(45deg);
         opacity: 0;
     }
+}
+
+.action-btn {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    border-radius: 8px;
+    cursor: pointer;
+
+
+    transition: border-color 0.25s, background-color 0.25s, box-shadow 0.25s;
+}
+
+.action-btn:hover {
+    background-color: #333333;
+    border-color: #646cff;
+    box-shadow: 0 0 12px rgba(100, 108, 255, 0.5);
+}
+
+
+.action-btn:active {
+    background-color: #4a4a4a;
+    transform: scale(0.98);
 }
