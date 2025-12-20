@@ -96,7 +96,7 @@ export default function FlightCrewPage() {
                    {/* Araç Kısıtlamaları */}
                    {member.vehicle_restrictions && member.vehicle_restrictions.length > 0 && (
                        <div style={{marginBottom:'5px'}}>
-                           <strong>Araç: </strong>
+                           <strong>Vehicle: </strong>
                            {member.vehicle_restrictions.map(v => v.type_veh).join(', ')}
                        </div>
                    )}

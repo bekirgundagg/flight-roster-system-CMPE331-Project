@@ -49,7 +49,6 @@ def assign_pilots(roster):
     roster.pilots.add(selected_senior)
     roster.pilots.add(selected_junior)
 
-    # Opsiyonel: Büyük uçaklar için trainee eklenebilir
     if trainees and flight.vehicle.seat_count > 100:
         selected_trainee = random.choice(trainees)
         roster.pilots.add(selected_trainee)
@@ -74,7 +73,7 @@ def assign_cabin_crew(roster):
     ).distinct()
 
     if not candidates.exists():
-        print("HATA: Bu uçak tipi için uygun kabin ekibi bulunamadı!")
+        print("Error candidates doesnt exist.")
         return False
 
     # GRUPLAMA

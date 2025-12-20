@@ -27,17 +27,13 @@ class VehicleTypeViewSet(viewsets.ModelViewSet):
 
 
 class FlightViewSet(viewsets.ModelViewSet):
-    # --- DÜZELTME 1: select_related ---
-    # Hata mesajında Django dedi ki: "Choices are: source, destination, vehicle"
-    # Biz de inatlaşmıyoruz, onun dediği isimleri yazıyoruz.
+
     queryset = Flight.objects.select_related('source', 'destination', 'vehicle').all()
 
     serializer_class = FlightSerializer
     permission_classes = [IsAuthenticated]
 
-    # --- DÜZELTME 2: Filtreleme ---
-    # Filtrelerde de modeldeki isimleri kullanmalıyız.
-    # source_airport__code -> source__code
+
     filterset_fields = ('flight_number', 'source__code', 'destination__code', 'departure_datetime')
 
 

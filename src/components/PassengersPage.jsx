@@ -81,7 +81,7 @@ export default function PassengersPage() {
                     </span>
 
                     <span style={{ fontSize: '12px', color: '#666' }}>
-                      {p.email || "E-posta yok"}
+                      {p.email || "no E-mail"}
                     </span>
 
                     {/* YENİ EKLENEN KISIM: Ebeveyn Gösterimi */}

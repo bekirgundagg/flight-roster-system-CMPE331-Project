@@ -74,66 +74,7 @@
       "distance_km": 3000,
       "notes": "Evening Departure"
     },
-    {
-      "flight_number": "HB1007",
-      "source_code": "DXB",
-      "destination_code": "JFK",
-      "vehicle_name": "Boeing 787-9",
-      "departure_datetime": "2025-12-30T02:10:00Z",
-      "duration_minutes": 840,
-      "distance_km": 11000,
-      "notes": "Long Haul"
-    },
-    {
-      "flight_number": "HB1008",
-      "source_code": "JFK",
-      "destination_code": "CDG",
-      "vehicle_name": "Airbus A330-300",
-      "departure_datetime": "2025-12-30T22:45:00Z",
-      "duration_minutes": 420,
-      "distance_km": 5850,
-      "notes": "Overnight Atlantic"
-    },
-    {
-      "flight_number": "HB1009",
-      "source_code": "LHR",
-      "destination_code": "CDG",
-      "vehicle_name": "Airbus A320",
-      "departure_datetime": "2025-12-31T10:10:00Z",
-      "duration_minutes": 75,
-      "distance_km": 350,
-      "notes": "Shuttle"
-    },
-    {
-      "flight_number": "HB1010",
-      "source_code": "CDG",
-      "destination_code": "FRA",
-      "vehicle_name": "Airbus A320",
-      "departure_datetime": "2025-12-31T16:40:00Z",
-      "duration_minutes": 75,
-      "distance_km": 450,
-      "notes": "Regional Hop"
-    },
-    {
-      "flight_number": "HB1011",
-      "source_code": "FRA",
-      "destination_code": "DXB",
-      "vehicle_name": "Boeing 787-9",
-      "departure_datetime": "2026-01-01T00:30:00Z",
-      "duration_minutes": 390,
-      "distance_km": 4800,
-      "notes": "New Year Redeye"
-    },
-    {
-      "flight_number": "HB1012",
-      "source_code": "DXB",
-      "destination_code": "IST",
-      "vehicle_name": "Boeing 737",
-      "departure_datetime": "2026-01-01T12:15:00Z",
-      "duration_minutes": 270,
-      "distance_km": 3000,
-      "notes": "Return Flight"
-    },
+
     {
       "flight_number": "HB2020",
       "source_code": "IST",
