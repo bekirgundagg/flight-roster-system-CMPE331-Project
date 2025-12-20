@@ -232,7 +232,7 @@
       "attendant_type": "regular",
       "seniority_level": "junior",
       "languages": ["Turkish", "English"],
-      "allowed_vehicles": ["Boeing 737"]
+      "allowed_vehicles": ["Boeing 737","Boeing 777"]
     },
     {
       "id": "CC021",
@@ -243,7 +243,7 @@
       "attendant_type": "regular",
       "seniority_level": "junior",
       "languages": ["Turkish", "English"],
-      "allowed_vehicles": ["Airbus A320", "Boeing 737"]
+      "allowed_vehicles": ["Airbus A320", "Boeing 737", "Boeing 777"]
     },
     {
       "id": "CC022",
@@ -254,7 +254,7 @@
       "attendant_type": "regular",
       "seniority_level": "junior",
       "languages": ["Spanish", "English", "French"],
-      "allowed_vehicles": ["Airbus A320"]
+      "allowed_vehicles": ["Airbus A320", "Boeing 777"]
     },
     {
       "id": "CC023",
@@ -298,7 +298,7 @@
       "attendant_type": "regular",
       "seniority_level": "junior",
       "languages": ["Turkish", "English", "Italian"],
-      "allowed_vehicles": ["Boeing 737", "Airbus A320"]
+      "allowed_vehicles": ["Boeing 737", "Airbus A320", "Boeing 777"]
     },
     {
       "id": "CC027",
@@ -320,7 +320,7 @@
       "attendant_type": "regular",
       "seniority_level": "junior",
       "languages": ["Italian", "English", "Spanish"],
-      "allowed_vehicles": ["Airbus A320"]
+      "allowed_vehicles": ["Airbus A320", "Boeing 777"]
     },
     {
       "id": "CC029",
@@ -331,7 +331,7 @@
       "attendant_type": "regular",
       "seniority_level": "junior",
       "languages": ["Turkish", "English"],
-      "allowed_vehicles": ["Boeing 737"]
+      "allowed_vehicles": ["Boeing 737", "Boeing 777"]
     },
     {
       "id": "CC030",

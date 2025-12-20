@@ -11,7 +11,7 @@
     { "name": "Boeing 737", "seat_count": 180, "max_crew": 6, "max_passengers": 180 },
     { "name": "Airbus A320", "seat_count": 150, "max_crew": 5, "max_passengers": 150 },
     { "name": "Boeing 787-9", "seat_count": 260, "max_crew": 10, "max_passengers": 260 },
-    { "name": "Airbus A330-300", "seat_count": 300, "max_crew": 11, "max_passengers": 300 }
+    { "name": "Boeing 777", "seat_count": 300, "max_crew": 11, "max_passengers": 300 }
   ],
   "flights": [
     {
@@ -28,7 +28,7 @@
       "flight_number": "HB1002",
       "source_code": "LHR",
       "destination_code": "JFK",
-      "vehicle_name": "Boeing 787-9",
+      "vehicle_name": "Boeing 777",
       "departure_datetime": "2025-12-26T14:00:00Z",
       "duration_minutes": 480,
       "distance_km": 5500,
@@ -79,7 +79,7 @@
       "flight_number": "HB2020",
       "source_code": "IST",
       "destination_code": "JFK",
-      "vehicle_name": "Boeing 787-9",
+      "vehicle_name": "Boeing 777",
       "departure_datetime": "2026-01-02T10:00:00Z",
       "duration_minutes": 650,
       "distance_km": 8000,

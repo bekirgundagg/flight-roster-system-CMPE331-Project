@@ -51,7 +51,6 @@ export default function PassengersPage() {
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px'}}>
         <div>
             <h2 className="page-title">Passenger List</h2>
-            <p className="page-subtitle">Real-time flight passenger records and statuses.</p>
         </div>
         <button className="action-btn" onClick={() => navigate('/dashboard')}>Back to Dashboard</button>
       </div>

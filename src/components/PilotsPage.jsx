@@ -38,7 +38,7 @@ export default function PilotsPage() {
 
   return (
     <div className="page-container">
-      <h2 className="page-title">Pilotlar</h2>
+      <h2 className="page-title">Pilots</h2>
       <div className="card">
         <table className="styled-table">
           <thead>

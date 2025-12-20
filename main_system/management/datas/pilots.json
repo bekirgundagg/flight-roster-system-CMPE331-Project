@@ -15,7 +15,7 @@
       "nationality": "Turkish",
       "seniority_level": "senior",
       "allowed_range": 12000,
-      "vehicle_restriction": "Boeing 787-9",
+      "vehicle_restriction": "Boeing 777",
       "known_languages": ["Turkish", "English", "German"]
     },
     {
@@ -55,7 +55,7 @@
       "nationality": "Japan",
       "seniority_level": "senior",
       "allowed_range": 12000,
-      "vehicle_restriction": "Boeing 787-9",
+      "vehicle_restriction": "Boeing 777",
       "known_languages": ["Japanese", "English"]
     },
 
@@ -116,7 +116,7 @@
       "nationality": "USA",
       "seniority_level": "junior",
       "allowed_range": 8000,
-      "vehicle_restriction": "Boeing 787-9",
+      "vehicle_restriction": "Boeing 777",
       "known_languages": ["English", "Spanish"]
     },
     {
@@ -156,7 +156,7 @@
       "nationality": "Germany",
       "seniority_level": "junior",
       "allowed_range": 8200,
-      "vehicle_restriction": "Boeing 787-9",
+      "vehicle_restriction": "Boeing 777",
       "known_languages": ["German", "English", "French"]
     },
     {
